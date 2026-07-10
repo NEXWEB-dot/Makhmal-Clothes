@@ -179,16 +179,8 @@
               <span class="text-[0.65rem] uppercase font-bold tracking-[0.15em] text-[#44403c]">Select Your Size</span>
               <a href="#" class="text-[0.6rem] uppercase tracking-[0.15em] underline text-[#8b7355] hover:text-[#1c1917] transition-colors font-semibold">Size Chart</a>
             </div>
-            <div class="flex flex-wrap gap-3" id="size-selector">
-              <button class="size-btn border border-[#eae8e4] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] w-11 h-11 text-[0.7rem] uppercase tracking-widest transition-colors flex items-center justify-center bg-white" data-size="XS">XS</button>
-              <button class="size-btn border-2 border-[#1c1917] text-[#1c1917] font-bold w-11 h-11 text-[0.7rem] uppercase tracking-widest transition-colors flex items-center justify-center bg-[#faf8f5]" data-size="S">S</button>
-              <button class="size-btn border border-[#eae8e4] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] w-11 h-11 text-[0.7rem] uppercase tracking-widest transition-colors flex items-center justify-center bg-white" data-size="M">M</button>
-              <button class="size-btn border border-[#eae8e4] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] w-11 h-11 text-[0.7rem] uppercase tracking-widest transition-colors flex items-center justify-center bg-white" data-size="L">L</button>
-              <button disabled class="border border-[#eae8e4] text-[#d4d0ca] w-11 h-11 text-[0.7rem] uppercase tracking-widest cursor-not-allowed flex items-center justify-center relative bg-white overflow-hidden">
-                XL
-                <div class="absolute w-full h-[1px] bg-[#d4d0ca] rotate-45"></div>
-              </button>
-            </div>
+            <!-- Sizes injected dynamically from Sanity -->
+            <div class="flex flex-wrap gap-3" id="size-selector"></div>
             <p id="size-warning" class="hidden text-[0.6rem] text-[#c1121f] mt-3 tracking-wide font-medium">Please select a size to continue</p>
           </div>
 
@@ -225,15 +217,10 @@
               <button class="tab-button pb-3 border-b-2 border-transparent text-[#a8a29e] hover:text-[#44403c] transition-colors" data-target="tab-size">SIZE GUIDE</button>
             </div>
 
-            <div id="tab-details" class="tab-content active text-[0.7rem] text-[#44403c] leading-loose">
-              <p class="mb-2 flex items-center gap-2"><i class="ph ph-check text-[#8b7355]"></i> Relaxed Fit Silhouette</p>
-              <p class="mb-2 flex items-center gap-2"><i class="ph ph-check text-[#8b7355]"></i> Colour: Blush Pink</p>
-              <p class="mb-5 flex items-center gap-2"><i class="ph ph-check text-[#8b7355]"></i> Fabric: Silk Blend Satin</p>
-              <p class="text-[0.6rem] uppercase tracking-wider text-[#a8a29e] p-3 bg-[#faf8f5] border border-[#eae8e4]">NOTE: ACTUAL PRODUCT COLOR MAY VARY SLIGHTLY FROM THE IMAGE.</p>
-            </div>
-            <div id="tab-description" class="tab-content hidden text-[0.7rem] text-[#44403c] leading-relaxed">
-              <p>Elevate your everyday wardrobe with our Floral Silk Blend Shirt. Designed with a relaxed, flowing silhouette, this piece is crafted from premium satin that drapes beautifully. The subtle blush pink tone is complemented by delicate floral motifs, offering a perfect balance of comfort and modern elegance.</p>
-            </div>
+            <!-- Details injected dynamically from Sanity -->
+            <div id="tab-details" class="tab-content active text-[0.7rem] text-[#44403c] leading-loose"></div>
+            <!-- Description injected dynamically from Sanity -->
+            <div id="tab-description" class="tab-content hidden text-[0.7rem] text-[#44403c] leading-relaxed"></div>
             <div id="tab-size" class="tab-content hidden text-[0.7rem] text-[#44403c] leading-relaxed">
               <p class="mb-2">Model is wearing size <strong>S</strong>.</p>
               <p class="mb-4">Model height: <strong>5'8"</strong></p>

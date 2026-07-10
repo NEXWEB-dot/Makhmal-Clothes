@@ -288,11 +288,100 @@ document.addEventListener('DOMContentLoaded', () => {
       if (numPrice) installmentEl.innerText = `Rs.${Math.round(numPrice / 3).toLocaleString()}`;
     }
 
+    // ----- SIZES (from Sanity sizes[] array) -----
+    buildSizeButtons(data.sizes);
+
+    // ----- DETAILS TAB (from Sanity `details` field) -----
+    const detailsTab = document.getElementById('tab-details');
+    if (detailsTab) {
+      if (data.details && data.details.trim()) {
+        // Each line in the `details` field becomes one bullet row
+        const lines = data.details.trim().split('\n').filter(l => l.trim());
+        detailsTab.innerHTML = lines.map((line, i) =>
+          `<p class="${i < lines.length - 1 ? 'mb-2' : 'mb-5'} flex items-center gap-2">
+            <i class="ph ph-check text-[#8b7355]"></i> ${line.trim()}
+          </p>`
+        ).join('') +
+        `<p class="text-[0.6rem] uppercase tracking-wider text-[#a8a29e] p-3 bg-[#faf8f5] border border-[#eae8e4]">NOTE: ACTUAL PRODUCT COLOR MAY VARY SLIGHTLY FROM THE IMAGE.</p>`;
+      } else {
+        detailsTab.innerHTML = `<p class="text-[#a8a29e] italic text-[0.7rem]">No details available.</p>`;
+      }
+    }
+
+    // ----- DESCRIPTION TAB (from Sanity `description` field) -----
+    const descTab = document.getElementById('tab-description');
+    if (descTab) {
+      if (data.description && data.description.trim()) {
+        descTab.innerHTML = `<p>${data.description.trim()}</p>`;
+      } else {
+        descTab.innerHTML = `<p class="text-[#a8a29e] italic text-[0.7rem]">No description available.</p>`;
+      }
+    }
+
     // Build gallery from Sanity images array
     buildGallery(data.images && data.images.length ? data.images : ['clothes/images/product-2.png']);
 
     // Suggested products
     buildSuggestedGrid(data.title);
+  }
+
+  // ===== SIZE BUTTONS (built dynamically from Sanity sizes[]) =====
+  let selectedSize = null;
+  const sizeWarning = document.getElementById('size-warning');
+
+  function buildSizeButtons(sizes) {
+    const container = document.getElementById('size-selector');
+    if (!container) return;
+    container.innerHTML = '';
+    selectedSize = null;
+
+    // Fallback sizes when product has no Sanity sizes defined
+    const fallback = [
+      { size: 'XS', stock: 10 },
+      { size: 'S',  stock: 10 },
+      { size: 'M',  stock: 10 },
+      { size: 'L',  stock: 10 },
+      { size: 'XL', stock: 0  },
+    ];
+    const sizeList = (Array.isArray(sizes) && sizes.length) ? sizes : fallback;
+
+    sizeList.forEach(opt => {
+      const inStock = opt.stock > 0;
+      const btn = document.createElement('button');
+
+      if (inStock) {
+        btn.className = 'size-btn border border-[#eae8e4] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] w-11 h-11 text-[0.7rem] uppercase tracking-widest transition-colors flex items-center justify-center bg-white';
+        btn.setAttribute('data-size', opt.size);
+      } else {
+        btn.className = 'border border-[#eae8e4] text-[#d4d0ca] w-11 h-11 text-[0.7rem] uppercase tracking-widest cursor-not-allowed flex items-center justify-center relative bg-white overflow-hidden';
+        btn.disabled = true;
+        btn.title = 'Out of stock';
+      }
+
+      btn.innerHTML = inStock
+        ? opt.size
+        : `${opt.size}<div class="absolute w-full h-[1px] bg-[#d4d0ca] rotate-45"></div>`;
+
+      container.appendChild(btn);
+    });
+
+    bindSizeButtons();
+  }
+
+  function bindSizeButtons() {
+    const allSizeBtns = document.querySelectorAll('#size-selector .size-btn:not(:disabled)');
+    allSizeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        allSizeBtns.forEach(b => {
+          b.classList.remove('border-2', 'border-[#1c1917]', 'text-[#1c1917]', 'font-bold', 'bg-[#faf8f5]');
+          b.classList.add('border', 'border-[#eae8e4]', 'text-[#78716c]', 'bg-white');
+        });
+        btn.classList.remove('border', 'border-[#eae8e4]', 'text-[#78716c]', 'bg-white');
+        btn.classList.add('border-2', 'border-[#1c1917]', 'text-[#1c1917]', 'font-bold', 'bg-[#faf8f5]');
+        selectedSize = btn.getAttribute('data-size');
+        if (sizeWarning) sizeWarning.classList.add('hidden');
+      });
+    });
   }
 
   // ===== SUGGESTED PRODUCTS =====
@@ -361,22 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ===== SIZE SELECTOR =====
-  let selectedSize = 'S';
-  const sizeWarning = document.getElementById('size-warning');
-
-  document.querySelectorAll('.size-btn:not(:disabled)').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.size-btn:not(:disabled)').forEach(b => {
-        b.classList.remove('border-2', 'border-[#1c1917]', 'text-[#1c1917]', 'font-bold', 'bg-[#faf8f5]');
-        b.classList.add('border', 'border-[#eae8e4]', 'text-[#78716c]', 'bg-white');
-      });
-      btn.classList.remove('border', 'border-[#eae8e4]', 'text-[#78716c]', 'bg-white');
-      btn.classList.add('border-2', 'border-[#1c1917]', 'text-[#1c1917]', 'font-bold', 'bg-[#faf8f5]');
-      selectedSize = btn.getAttribute('data-size');
-      if (sizeWarning) sizeWarning.classList.add('hidden');
-    });
-  });
+  // ===== SIZE SELECTOR (now bound dynamically — see buildSizeButtons above) =====
 
   // ===== BUY NOW =====
   const buyNowBtn = document.getElementById('buy-now-btn');
