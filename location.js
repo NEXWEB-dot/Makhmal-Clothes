@@ -36,40 +36,37 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loc === 'Pakistan') {
       paymentContainer.innerHTML = `
         <label class="payment-option-clean">
-          <input type="radio" name="payment" value="easypaisa" checked data-acc="0300 0000000" data-name="Makhmal Official">
+          <input type="radio" name="payment" value="easypaisa" checked
+            data-acc="03165521689"
+            data-accnum="01070010128864860018"
+            data-iban="PK67ABPA0010128864860018"
+            data-name="Amama Malik">
           <i class="ph ph-device-mobile icon"></i>
           <div class="info">
             <p class="title">Easypaisa</p>
-            <div class="payment-instructions hidden" style="font-size:12px; color:#555; margin-top:8px;">
-              Please send the amount to <strong>0300 0000000</strong> (Makhmal Official)
+            <div class="payment-instructions hidden" style="font-size:12px; color:#555; margin-top:8px; line-height:1.8;">
+              Send the amount to:<br>
+              <strong>Amama Malik</strong><br>
+              📱 <strong>03165521689</strong><br>
+              Acc: <strong>01070010128864860018</strong><br>
+              IBAN: <strong>PK67ABPA0010128864860018</strong>
             </div>
           </div>
         </label>
         <label class="payment-option-clean">
-          <input type="radio" name="payment" value="jazzcash" data-acc="0300 0000000" data-name="Makhmal Official">
-          <i class="ph ph-wallet icon"></i>
-          <div class="info">
-            <p class="title">Jazz Cash</p>
-            <div class="payment-instructions hidden" style="font-size:12px; color:#555; margin-top:8px;">
-              Please send the amount to <strong>0300 0000000</strong> (Makhmal Official)
-            </div>
-          </div>
-        </label>
-        <label class="payment-option-clean">
-          <input type="radio" name="payment" value="banktransfer" data-acc="0123-4567890" data-name="Makhmal - HBL Bank">
+          <input type="radio" name="payment" value="banktransfer"
+            data-acc="01070010128864860018"
+            data-iban="PK67ABPA0010128864860018"
+            data-name="Amama Malik">
           <i class="ph ph-bank icon"></i>
           <div class="info">
             <p class="title">Bank Transfer</p>
-            <div class="payment-instructions hidden" style="font-size:12px; color:#555; margin-top:8px;">
-              Transfer to HBL Account: <strong>0123-4567890</strong> (Makhmal)
+            <div class="payment-instructions hidden" style="font-size:12px; color:#555; margin-top:8px; line-height:1.8;">
+              Transfer to:<br>
+              <strong>Amama Malik</strong><br>
+              Acc: <strong>01070010128864860018</strong><br>
+              IBAN: <strong>PK67ABPA0010128864860018</strong>
             </div>
-          </div>
-        </label>
-        <label class="payment-option-clean">
-          <input type="radio" name="payment" value="cod">
-          <i class="ph ph-money icon"></i>
-          <div class="info">
-            <p class="title">Cash on Delivery (COD)</p>
           </div>
         </label>
       `;

@@ -190,13 +190,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Account Details Box
     const accountBox = document.getElementById('r-account-details-box');
     const selectedPaymentInput = document.querySelector('input[name="payment"]:checked');
-    const accNum = selectedPaymentInput ? selectedPaymentInput.getAttribute('data-acc') : null;
-    const accName = selectedPaymentInput ? selectedPaymentInput.getAttribute('data-name') : null;
+    const accPhone  = selectedPaymentInput ? selectedPaymentInput.getAttribute('data-acc') : null;
+    const accNum    = selectedPaymentInput ? selectedPaymentInput.getAttribute('data-accnum') : null;
+    const accIban   = selectedPaymentInput ? selectedPaymentInput.getAttribute('data-iban') : null;
+    const accName   = selectedPaymentInput ? selectedPaymentInput.getAttribute('data-name') : null;
 
-    if (accNum && paymentVal !== 'cod') {
+    if (accPhone && paymentVal !== 'cod') {
       accountBox.classList.remove('hidden');
-      document.getElementById('r-account-number').textContent = accNum;
-      document.getElementById('r-account-name').textContent = `(${accName})`;
+      document.getElementById('r-account-number').innerHTML =
+        `${accName}<br>
+         📱 ${accPhone}` +
+        (accNum  ? `<br>Acc: ${accNum}`  : '') +
+        (accIban ? `<br>IBAN: ${accIban}` : '');
+      document.getElementById('r-account-name').textContent = '';
     } else {
       accountBox.classList.add('hidden');
     }
