@@ -97,11 +97,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   tabButtons.forEach(button => {
     button.addEventListener('click', () => {
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      tabContents.forEach(content => content.classList.remove('active'));
-      button.classList.add('active');
+      // Reset all buttons
+      tabButtons.forEach(btn => {
+        btn.classList.remove('active', 'border-[#1c1917]', 'text-[#1c1917]');
+        btn.classList.add('border-transparent', 'text-[#a8a29e]');
+      });
+      // Reset all contents
+      tabContents.forEach(content => {
+        content.classList.remove('active');
+        content.classList.add('hidden');
+      });
+      
+      // Activate clicked button
+      button.classList.add('active', 'border-[#1c1917]', 'text-[#1c1917]');
+      button.classList.remove('border-transparent', 'text-[#a8a29e]');
+      
+      // Show corresponding content
       const targetId = button.getAttribute('data-target');
-      document.getElementById(targetId).classList.add('active');
+      const targetContent = document.getElementById(targetId);
+      targetContent.classList.add('active');
+      targetContent.classList.remove('hidden');
     });
   });
 
@@ -112,12 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   sizeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
+      // Reset all
       sizeButtons.forEach(b => {
-        b.classList.remove('border-black', 'text-black');
-        b.classList.add('border-grey-3', 'text-grey-6');
+        b.classList.remove('border-2', 'border-[#1c1917]', 'text-[#1c1917]', 'font-bold', 'bg-[#faf8f5]');
+        b.classList.add('border', 'border-[#eae8e4]', 'text-[#78716c]', 'bg-white');
       });
-      btn.classList.remove('border-grey-3', 'text-grey-6');
-      btn.classList.add('border-black', 'text-black');
+      
+      // Set active
+      btn.classList.remove('border', 'border-[#eae8e4]', 'text-[#78716c]', 'bg-white');
+      btn.classList.add('border-2', 'border-[#1c1917]', 'text-[#1c1917]', 'font-bold', 'bg-[#faf8f5]');
+      
       selectedSize = btn.getAttribute('data-size');
       if (sizeWarning) sizeWarning.classList.add('hidden');
     });

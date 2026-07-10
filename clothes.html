@@ -49,10 +49,26 @@
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body class="bg-brand-white text-grey-7 font-sans antialiased relative">
+  <!-- Top Announcement Bar -->
+  <div class="bg-black text-brand-white text-xs font-medium py-2 uppercase tracking-widest relative z-50">
+    <div class="container mx-auto px-4 flex justify-between items-center max-w-[1440px]">
+      <div class="hidden md:block w-24"></div>
+      <div class="text-center flex-1">Free delivery on all orders over Rs. 3500</div>
+      <div class="w-24 text-right">
+        <select class="region-selector bg-transparent text-white border-none outline-none text-[10px] tracking-widest cursor-pointer uppercase appearance-none text-right">
+          <option value="Pakistan" class="text-black">Pakistan</option>
+          <option value="USA" class="text-black">USA</option>
+          <option value="UK" class="text-black">UK</option>
+          <option value="UAE" class="text-black">UAE</option>
+          <option value="Global" class="text-black">Global</option>
+        </select>
+      </div>
+    </div>
+  </div>
   <!-- Header -->
   <header class="sticky top-0 bg-brand-white z-40 shadow-sm border-b border-grey-2">
     <div class="container mx-auto px-4 max-w-[1440px]">
@@ -60,7 +76,7 @@
         <!-- Left: Hamburger & Logo -->
         <div class="flex items-center gap-6">
           <i class="ph ph-list text-2xl md:text-3xl cursor-pointer hover:text-primary transition-colors"></i>
-          <a href="index.html" class="text-xl md:text-3xl font-bold tracking-[0.2em] uppercase whitespace-nowrap">MAKHMAL</a>
+          <a href="index.html" class="text-2xl md:text-4xl italic tracking-[0.03em] whitespace-nowrap" style="font-family: 'Cormorant Garamond', serif; font-weight: 600;">Makhmal</a>
         </div>
         <!-- Right: Icons -->
         <div class="flex items-center gap-6 text-xl md:text-2xl">
@@ -119,151 +135,8 @@
     </div>
 
     <!-- Product Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-y-16 gap-x-1 mb-20">
-      <!-- Item 1 -->
-      <a href="product.html?id=1" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/product-1.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">EMBROIDERED COTTON VISCOSE SHIRT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.4,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 2 -->
-      <a href="product.html?id=2" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/product-2.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">PRINTED SATIN SHIRT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.10,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 3 -->
-      <a href="product.html?id=3" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/product-3.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">EMBROIDERED COTTON VISCOSE SHIRT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.6,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 4 -->
-      <a href="product.html?id=4" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/product-4.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">2 PIECE - PRINTED LAWN SUIT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.4,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 5 -->
-      <a href="product.html?id=5" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/product-5.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">3 PIECE - EMBROIDERED DOBBY SUIT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.12,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 6 -->
-      <a href="product.html?id=6" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/product-6.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">2 PIECE - EMBROIDERED LAWN SUIT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.10,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 7 -->
-      <a href="product.html?id=7" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/woman.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">EMBROIDERED LAWN SHIRT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.8,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 8 -->
-      <a href="product.html?id=8" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/woman (2).jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">EMBROIDERED DOBBY SHIRT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.5,590</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 9 -->
-      <a href="product.html?id=9" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/woman (3).jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">3 PIECE - SOLID CROSSHATCH SUIT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.10,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 10 -->
-      <a href="product.html?id=10" class="group cursor-pointer flex flex-col scroll-animate">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/woman (4).jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">3 PIECE - SOLID DOBBY SUIT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.9,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 11 -->
-      <a href="product.html?id=11" class="group cursor-pointer flex flex-col">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/woman (6).jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">2 PIECE - EMBROIDERED LAWN SUIT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.10,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
-      <!-- Item 12 -->
-      <a href="product.html?id=12" class="group cursor-pointer flex flex-col">
-        <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-          <img src="clothes/images/woman (7).jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Product">
-        </div>
-        <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">3 PIECE - EMBROIDERED JACQUARD SUIT</h2>
-        <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">RTW SUMMER '24 - NEW ARRIVALS</p>
-        <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.13,990</p>
-        <div class="mt-auto">
-          <span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">NEW IN</span>
-        </div>
-      </a>
+    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-y-16 gap-x-1 mb-20">
+      <p id="product-loading" class="col-span-full text-center text-xs uppercase tracking-widest text-grey-4 py-16">Loading products...</p>
     </div>
 
     <!-- SEO Content Section -->
@@ -374,6 +247,67 @@
   </footer>
   <script src="clothes/main.js"></script>
   <script src="location.js"></script>
+  <script>
+    // ===== SANITY CONFIG (MAKHMAL) =====
+    const SANITY_PROJECT_ID = '4pv1hk2n';
+    const SANITY_DATASET = 'production';
+    const SANITY_API_VERSION = '2024-01-01';
+
+    function sanityQueryUrl(query) {
+      const base = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}`;
+      return `${base}?${new URLSearchParams({ query }).toString()}`;
+    }
+
+    function productCardHTML(p) {
+      const esc = (s) => String(s).replace(/"/g, '&quot;');
+      const name = esc(p.name || 'Untitled Product');
+      const price = Number(p.price) || 0;
+      const image = esc(p.mainImage || '');
+      const tag = esc(p.collectionTag || '');
+      const badge = esc(p.badge || '');
+
+      return `
+        <a href="product.html?id=${p._id}" class="group cursor-pointer flex flex-col scroll-animate is-visible">
+          <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
+            <img src="${image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="${name}" loading="lazy">
+          </div>
+          <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">${name}</h2>
+          <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">${tag}</p>
+          <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.${price.toLocaleString()}</p>
+          ${badge ? `<div class="mt-auto"><span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">${badge}</span></div>` : ''}
+        </a>
+      `;
+    }
+
+    async function loadProducts() {
+      const grid = document.getElementById('product-grid');
+      const loadingEl = document.getElementById('product-loading');
+      const query = `*[_type == "product"] | order(order asc){
+        _id, name, price, collectionTag, badge, "mainImage": mainImage.asset->url
+      }`;
+
+      try {
+        const res = await fetch(sanityQueryUrl(query));
+        if (!res.ok) throw new Error(`Sanity request failed: ${res.status}`);
+        const json = await res.json();
+        const products = json.result || [];
+
+        if (loadingEl) loadingEl.remove();
+
+        if (products.length === 0) {
+          grid.innerHTML = '<p class="col-span-full text-center text-xs uppercase tracking-widest text-grey-4 py-16">No products available right now.</p>';
+          return;
+        }
+
+        grid.innerHTML = products.map(productCardHTML).join('');
+      } catch (err) {
+        console.error('Failed to load products from Sanity:', err);
+        if (loadingEl) loadingEl.textContent = 'Could not load products. Please refresh the page.';
+      }
+    }
+
+    loadProducts();
+  </script>
 </body>
 </html>
 
