@@ -4,15 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FLORAL SILK BLEND SHIRT - MAKHMAL</title>
+  <meta name="description" content="Shop the Floral Silk Blend Shirt at Makhmal. Premium silk blend satin with a relaxed, flowing silhouette in blush pink.">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="product/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body class="bg-brand-white text-grey-7 font-sans antialiased relative">
-  
+
   <!-- Top Announcement Bar -->
   <div class="bg-black text-brand-white text-xs font-medium py-2 uppercase tracking-widest relative z-50">
     <div class="container mx-auto px-4 flex justify-between items-center max-w-[1440px]">
@@ -30,68 +31,146 @@
     </div>
   </div>
 
-  <!-- Header -->
-  <header class="sticky top-0 bg-brand-white z-40 shadow-sm border-b border-grey-2">
+  <!-- Header (matches index.html exactly) -->
+  <header class="border-b border-grey-1 sticky top-0 bg-brand-white/90 backdrop-blur-md z-40 transition-all duration-300 shadow-sm">
     <div class="container mx-auto px-4 max-w-[1440px]">
-      <div class="flex items-center justify-between h-16 md:h-20">
-        <div class="flex items-center gap-6">
-          <i class="ph ph-list text-2xl md:text-3xl cursor-pointer hover:text-primary transition-colors"></i>
+      <div class="flex items-center justify-between h-20">
+
+        <!-- Left Navigation (Desktop) -->
+        <nav class="hidden lg:flex items-center space-x-8 w-1/3 text-xs font-bold tracking-widest">
+          <a href="index.html" class="hover:text-primary transition-colors">HOME</a>
+          <a href="clothes.html" class="hover:text-primary transition-colors text-grey-4">WOMAN</a>
+        </nav>
+
+        <!-- Hamburger (Mobile) -->
+        <div class="flex items-center lg:hidden w-1/3">
+          <i id="open-mobile-menu" class="ph ph-list text-2xl cursor-pointer hover:text-primary transition-colors"></i>
+        </div>
+
+        <!-- Logo (centered) -->
+        <div class="flex-1 flex justify-center w-1/3">
           <a href="index.html" class="text-2xl md:text-4xl italic tracking-[0.03em] whitespace-nowrap" style="font-family: 'Cormorant Garamond', serif; font-weight: 600;">Makhmal</a>
         </div>
-        <nav class="hidden md:flex items-center gap-8 text-[0.7rem] font-bold tracking-widest uppercase">
-          <a href="index.html" class="hover:text-primary transition-colors">HOME</a>
-          <a href="clothes.html" class="text-primary transition-colors">WOMAN</a>
-        </nav>
-        <div class="flex items-center gap-6 text-xl md:text-2xl">
-          <i class="ph ph-magnifying-glass cursor-pointer hover:text-primary transition-colors"></i>
-          <i class="ph ph-user cursor-pointer hover:text-primary transition-colors"></i>
-          <a href="checkout.html" class="flex items-center gap-1 cursor-pointer hover:text-primary transition-colors">
-            <i class="ph ph-shopping-bag"></i>
-            <span class="text-sm font-medium">0</span>
+
+        <!-- Right Icons -->
+        <div class="flex items-center justify-end space-x-6 w-1/3">
+          <i id="search-icon" class="ph ph-magnifying-glass text-xl cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300"></i>
+          <i id="user-icon" class="ph ph-user text-xl cursor-pointer hidden md:block hover:text-primary transition-colors hover:scale-110 duration-300"></i>
+          <a href="checkout.html" id="cart-icon" class="relative cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300">
+            <i class="ph ph-shopping-bag text-xl"></i>
+            <span id="cart-badge" class="absolute -top-1.5 -right-2 bg-primary text-brand-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
           </a>
         </div>
       </div>
     </div>
   </header>
 
+  <!-- Mobile Menu Drawer -->
+  <div id="mobile-menu" class="fixed inset-y-0 left-0 w-80 bg-brand-white z-[70] shadow-2xl -translate-x-full transition-transform duration-500 ease-in-out">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-10 border-b border-grey-1 pb-4">
+        <span class="text-2xl italic tracking-[0.03em]" style="font-family: 'Cormorant Garamond', serif; font-weight: 600;">Makhmal</span>
+        <button id="close-mobile-menu" class="text-grey-4 hover:text-black transition-colors">
+          <i class="ph ph-x text-2xl"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-6 text-sm font-bold tracking-widest uppercase">
+        <a href="index.html" class="hover:text-primary transition-colors">HOME</a>
+        <a href="clothes.html" class="hover:text-primary transition-colors text-grey-4">WOMAN</a>
+        <a href="clothes.html" class="hover:text-primary transition-colors text-grey-4">BEAUTY</a>
+        <a href="clothes.html" class="hover:text-primary transition-colors text-grey-4">ACCESSORIES</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Global Overlay -->
+  <div id="global-overlay" class="fixed inset-0 bg-black/50 z-[60] hidden backdrop-blur-sm transition-opacity duration-500 opacity-0"></div>
+
+  <!-- Search Overlay -->
+  <div id="search-overlay" class="fixed inset-0 bg-brand-white/95 backdrop-blur-md z-[80] hidden opacity-0 transition-opacity duration-500 flex flex-col justify-center items-center">
+    <button id="close-search" class="absolute top-8 right-8 text-grey-4 hover:text-black transition-colors">
+      <i class="ph ph-x text-3xl"></i>
+    </button>
+    <div class="w-full max-w-2xl px-4">
+      <h3 class="text-xs font-bold tracking-widest uppercase text-grey-4 mb-4 text-center">WHAT ARE YOU LOOKING FOR?</h3>
+      <div class="relative">
+        <input type="text" placeholder="Search products, categories..." class="w-full border-b-2 border-black bg-transparent text-2xl md:text-4xl py-4 outline-none placeholder-grey-4 text-center">
+        <i class="ph ph-magnifying-glass absolute right-2 top-1/2 -translate-y-1/2 text-2xl text-grey-4"></i>
+      </div>
+    </div>
+  </div>
+
   <!-- Breadcrumbs -->
   <div class="container mx-auto px-4 max-w-[1440px]">
-    <div class="text-[0.65rem] uppercase tracking-widest text-grey-4 mt-6 mb-8 flex gap-2">
-      <a href="index.html" class="hover:text-primary transition-colors">Home</a> &gt; 
-      <a href="clothes.html" class="hover:text-primary transition-colors">Woman</a> &gt; 
-      <a href="clothes.html" class="hover:text-primary transition-colors">Ready to Wear</a> &gt; 
+    <div class="text-[0.65rem] uppercase tracking-widest text-grey-4 mt-6 mb-8 flex gap-2 items-center flex-wrap">
+      <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+      <i class="ph ph-caret-right text-[0.5rem]"></i>
+      <a href="clothes.html" class="hover:text-primary transition-colors">Woman</a>
+      <i class="ph ph-caret-right text-[0.5rem]"></i>
+      <a href="clothes.html" class="hover:text-primary transition-colors">Ready to Wear</a>
+      <i class="ph ph-caret-right text-[0.5rem]"></i>
       <span id="breadcrumb-name" class="text-grey-7 font-medium">Floral Silk Blend Shirt</span>
     </div>
   </div>
 
   <!-- Main Product Section -->
   <main class="container mx-auto px-4 max-w-[1440px] mb-24">
-    <div class="flex flex-col lg:flex-row gap-12">
-      <!-- Left: Image Grid -->
-      <div class="w-full lg:w-2/3">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-grey-1 aspect-[3/4] overflow-hidden scroll-animate">
-            <img id="product-image-1" src="clothes/images/product-2.png" alt="Product Image 1" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+    <div class="flex flex-col lg:flex-row gap-12 xl:gap-20">
+
+      <!-- Left: Professional Gallery -->
+      <div class="w-full lg:w-[55%] xl:w-[58%]">
+        <div class="flex gap-4">
+
+          <!-- Thumbnail Strip (vertical) -->
+          <div class="hidden md:flex flex-col gap-3 w-[88px] flex-shrink-0" id="thumbnail-strip">
+            <!-- Thumbnails injected by JS -->
           </div>
-          <div class="bg-grey-1 aspect-[3/4] overflow-hidden scroll-animate">
-            <img id="product-image-2" src="clothes/images/woman.jpg" alt="Product Image 2" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-          </div>
-          <div class="bg-grey-1 aspect-[3/4] overflow-hidden scroll-animate">
-            <img id="product-image-3" src="clothes/images/woman (2).jpg" alt="Product Image 3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-          </div>
-          <div class="bg-grey-1 aspect-[3/4] overflow-hidden scroll-animate">
-            <img id="product-image-4" src="clothes/images/woman (3).jpg" alt="Product Image 4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+
+          <!-- Main Image Viewer -->
+          <div class="flex-1 relative group">
+            <div id="main-image-wrapper" class="relative bg-[#f5f3f0] overflow-hidden cursor-zoom-in select-none" style="aspect-ratio: 3/4;">
+              <img id="main-product-image"
+                src="clothes/images/product-2.png"
+                alt="Product main view"
+                class="w-full h-full object-cover object-top transition-all duration-700 ease-in-out"
+              >
+              <!-- Zoom hint -->
+              <div class="absolute bottom-4 right-4 bg-white/80 backdrop-blur-sm px-3 py-1.5 text-[0.55rem] uppercase tracking-widest font-semibold text-grey-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1.5">
+                <i class="ph ph-magnifying-glass-plus"></i> Click to zoom
+              </div>
+              <!-- Nav arrows (mobile) -->
+              <button id="prev-image" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white md:hidden">
+                <i class="ph ph-caret-left text-sm"></i>
+              </button>
+              <button id="next-image" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white md:hidden">
+                <i class="ph ph-caret-right text-sm"></i>
+              </button>
+            </div>
+
+            <!-- Mobile dot indicators -->
+            <div id="mobile-dots" class="flex md:hidden justify-center gap-2 mt-3">
+              <!-- Dots injected by JS -->
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Right: Sticky Sidebar -->
-      <!-- Right: Sticky Sidebar -->
-      <div class="w-full lg:w-1/3">
+      <div class="w-full lg:w-[45%] xl:w-[42%]">
         <div class="sticky top-28 scroll-animate">
+
+          <!-- Sanity loading state -->
+          <div id="product-loading" class="hidden">
+            <div class="animate-pulse space-y-4">
+              <div class="h-8 bg-grey-1 w-3/4"></div>
+              <div class="h-6 bg-grey-1 w-1/4"></div>
+              <div class="h-[1px] bg-grey-2"></div>
+            </div>
+          </div>
+
           <h1 id="product-title" class="text-2xl md:text-3xl font-bold tracking-[0.05em] uppercase mb-2 text-[#1c1917]" style="font-family:'Cormorant Garamond',serif;line-height:1.2;">FLORAL SILK BLEND SHIRT</h1>
           <p id="product-price" class="text-xl font-bold text-[#1c1917] mb-4">Rs.8,990</p>
-          <div class="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#c4a97d] to-transparent mb-6"></div>
+          <div class="w-16 h-[1px] bg-gradient-to-r from-[#c4a97d] to-transparent mb-5"></div>
           <p id="product-sku" class="text-[0.65rem] uppercase tracking-[0.2em] text-[#a8a29e] mb-8 font-semibold">SKU: MK-RS-26-004-PNK</p>
 
           <!-- Size Selector -->
@@ -120,18 +199,18 @@
               <input type="text" id="qty-input" value="1" readonly class="w-1/3 h-full text-center text-sm font-bold outline-none bg-transparent text-[#1c1917]">
               <button id="qty-plus" class="w-1/3 h-full flex items-center justify-center text-lg text-[#44403c] hover:text-[#1c1917] transition-colors"><i class="ph ph-plus"></i></button>
             </div>
-            <button id="buy-now-btn" class="flex-1 bg-[#1c1917] text-white h-14 uppercase tracking-[0.2em] text-[0.7rem] font-bold hover:bg-[#44403c] transition-all rounded-none flex items-center justify-center gap-2 relative overflow-hidden group">
+            <button id="buy-now-btn" class="flex-1 bg-[#1c1917] text-white h-14 uppercase tracking-[0.2em] text-[0.7rem] font-bold hover:bg-[#44403c] transition-all flex items-center justify-center gap-2 relative overflow-hidden group">
               <i class="ph ph-shopping-bag text-lg transition-transform group-hover:-translate-y-1"></i>
               <span>Buy Now</span>
             </button>
           </div>
 
-          <!-- Add to Cart (secondary) -->
+          <!-- Add to Wishlist -->
           <button id="add-to-cart-btn" class="w-full border border-[#eae8e4] text-[#44403c] h-12 uppercase tracking-[0.15em] text-[0.65rem] font-bold hover:border-[#1c1917] hover:text-[#1c1917] transition-colors mb-8 flex items-center justify-center gap-2 bg-transparent">
             <i class="ph ph-heart text-base"></i>
             ADD TO WISHLIST
           </button>
-          
+
           <!-- Postpay snippet -->
           <div class="flex items-center gap-2 mb-10 text-[0.65rem] tracking-wide text-[#78716c] bg-[#faf8f5] p-3 border border-[#eae8e4]">
             <span class="bg-[#7b4dff] text-white px-2 py-1 font-bold text-[0.55rem] uppercase tracking-wider">Postpay</span>
@@ -145,7 +224,7 @@
               <button class="tab-button pb-3 border-b-2 border-transparent text-[#a8a29e] hover:text-[#44403c] transition-colors" data-target="tab-description">DESCRIPTION</button>
               <button class="tab-button pb-3 border-b-2 border-transparent text-[#a8a29e] hover:text-[#44403c] transition-colors" data-target="tab-size">SIZE GUIDE</button>
             </div>
-            
+
             <div id="tab-details" class="tab-content active text-[0.7rem] text-[#44403c] leading-loose">
               <p class="mb-2 flex items-center gap-2"><i class="ph ph-check text-[#8b7355]"></i> Relaxed Fit Silhouette</p>
               <p class="mb-2 flex items-center gap-2"><i class="ph ph-check text-[#8b7355]"></i> Colour: Blush Pink</p>
@@ -162,7 +241,7 @@
             </div>
           </div>
 
-          <!-- Trust / Delivery (New) -->
+          <!-- Trust / Delivery -->
           <div class="mb-8 grid grid-cols-1 gap-3">
             <div class="flex items-center gap-4 p-4 border border-[#eae8e4] bg-[#faf8f5]">
               <i class="ph ph-truck text-2xl text-[#8b7355]"></i>
@@ -192,6 +271,23 @@
     </div>
   </main>
 
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[90] bg-black/95 hidden items-center justify-center backdrop-blur-sm">
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10">
+      <i class="ph ph-x text-3xl"></i>
+    </button>
+    <button id="lightbox-prev" class="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+      <i class="ph ph-caret-left text-xl"></i>
+    </button>
+    <button id="lightbox-next" class="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+      <i class="ph ph-caret-right text-xl"></i>
+    </button>
+    <div class="w-full h-full flex items-center justify-center p-16">
+      <img id="lightbox-img" src="" alt="Product zoom" class="max-h-full max-w-full object-contain" style="max-height: 90vh;">
+    </div>
+    <div id="lightbox-counter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs tracking-widest uppercase">1 / 4</div>
+  </div>
+
   <!-- Recommended Section -->
   <section class="container mx-auto px-4 max-w-[1440px] mb-24 scroll-animate">
     <h3 class="text-center text-sm font-bold tracking-[0.1em] uppercase mb-12 text-grey-7">YOU MAY ALSO LIKE</h3>
@@ -212,9 +308,7 @@
           </div>
           <div class="flex items-start gap-3">
             <i class="ph ph-phone text-xl mt-1"></i>
-            <div>
-              <a href="tel:+92042111738145" class="hover:text-primary transition-colors block">+92(0)42 111-738-145</a>
-            </div>
+            <a href="tel:+92042111738145" class="hover:text-primary transition-colors block">+92(0)42 111-738-145</a>
           </div>
         </div>
         <div>

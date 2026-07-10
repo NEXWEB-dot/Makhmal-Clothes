@@ -1,36 +1,31 @@
-@import "tailwindcss";
+/* =========================================
+   MAKHMAL — Product Page Styles
+   ========================================= */
 
-@theme {
-  --color-primary: #00a1e0;
-  --color-brand-black: #000000;
-  --color-brand-white: #ffffff;
-  --color-success: #008827;
-  --color-danger: #cc0000;
-  --color-grey-1: #f9f9f9;
-  --color-grey-2: #eeeeee;
-  --color-grey-3: #cccccc;
-  --color-grey-4: #999999;
-  --color-grey-5: #666666;
-  --color-grey-6: #444444;
-  --color-grey-7: #222222;
-
-  --font-sans: "Montserrat", sans-serif;
-
-  --spacing-container-padding: 15px;
-
-  --radius-default: 0px;
-  --radius-input: 0.1875rem;
-  --radius-button: 0.1875rem;
+/* --- Gallery --- */
+#main-image-wrapper {
+  cursor: zoom-in;
 }
 
-@layer base {
-  body {
-    font-family: var(--font-sans);
-    color: var(--color-grey-7);
-    background-color: var(--color-brand-white);
-  }
+#thumbnail-strip {
+  max-height: 600px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+#thumbnail-strip::-webkit-scrollbar {
+  display: none;
 }
 
+.thumb-btn {
+  display: block;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+.thumb-btn:hover {
+  opacity: 0.85;
+}
+
+/* --- Scroll animations --- */
 .scroll-animate {
   opacity: 0;
   transform: translateY(40px);
@@ -41,7 +36,7 @@
   transform: translateY(0);
 }
 
-/* Custom styles for tab states */
+/* --- Tab content --- */
 .tab-content {
   display: none;
 }
@@ -52,18 +47,35 @@
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .tab-button {
-  color: var(--color-grey-5);
+  color: #666;
   border-bottom: 2px solid transparent;
   transition: all 0.3s ease;
 }
-.tab-button:hover {
-  color: var(--color-brand-black);
-}
+.tab-button:hover { color: #000; }
 .tab-button.active {
-  color: var(--color-brand-black);
-  border-bottom-color: var(--color-brand-black);
+  color: #1c1917;
+  border-bottom-color: #1c1917;
+}
+
+/* --- Lightbox --- */
+#lightbox {
+  animation: lbFadeIn 0.25s ease-out forwards;
+}
+@keyframes lbFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* --- Mobile dot pill animation --- */
+.dot {
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+/* --- Size button disabled line --- */
+button:disabled .absolute.rotate-45 {
+  top: 50%;
 }
