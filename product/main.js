@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
     buildGallery(data.images && data.images.length ? data.images : ['clothes/images/product-2.png']);
 
     // Suggested products
-    buildSuggestedGrid(data.title);
+    buildSuggestedGrid(data._id);
   }
 
   // ===== SIZE BUTTONS (built dynamically from Sanity sizes[]) =====
@@ -385,31 +385,56 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===== SUGGESTED PRODUCTS =====
-  function buildSuggestedGrid(currentTitle) {
+  async function buildSuggestedGrid(currentId) {
     const grid = document.getElementById('suggested-grid');
     const loading = document.getElementById('suggested-loading');
     if (!grid) return;
-    if (loading) loading.remove();
 
-    const allProducts = Object.values(products).filter(p => p.title !== currentTitle);
-    const shuffled = allProducts.sort(() => 0.5 - Math.random()).slice(0, 4);
+    const projectId = '4pv1hk2n';
+    const dataset   = 'production';
+    const apiVer    = '2024-01-01';
 
-    grid.innerHTML = '';
-    shuffled.forEach(p => {
-      const img = Array.isArray(p.images) ? p.images[0] : p.image;
-      const card = document.createElement('a');
-      card.href = `product.html?id=${Object.keys(products).find(k => products[k].title === p.title)}`;
-      card.className = 'block group cursor-pointer';
-      card.innerHTML = `
-        <div class="overflow-hidden bg-grey-1 aspect-[3/4] mb-4 relative">
-          <img src="${img}" alt="${p.title}" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500"></div>
-        </div>
-        <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-grey-7 mb-1 px-1">${p.title}</p>
-        <p class="text-[0.7rem] font-semibold text-[#44403c] px-1">${p.price}</p>
-      `;
-      grid.appendChild(card);
-    });
+    // Fetch 4 products from Sanity excluding the current one
+    const query = `*[_type == "product" && _id != "${currentId}"][0...4]{
+      _id,
+      "title": name,
+      price,
+      "image": mainImage.asset->url
+    }`;
+    const url = `https://${projectId}.apicdn.sanity.io/v${apiVer}/data/query/${dataset}?query=${encodeURIComponent(query)}`;
+
+    try {
+      const res  = await fetch(url);
+      const data = await res.json();
+      const products = data.result || [];
+      
+      if (loading) loading.remove();
+      grid.innerHTML = '';
+      
+      if (products.length === 0) {
+        grid.innerHTML = '<p class="col-span-full text-center text-xs uppercase tracking-widest text-grey-4 py-10">No recommendations available</p>';
+        return;
+      }
+
+      products.forEach(p => {
+        const priceStr = typeof p.price === 'number' ? `Rs.${p.price.toLocaleString()}` : p.price;
+        const card = document.createElement('a');
+        card.href = `product.html?id=${p._id}`;
+        card.className = 'block group cursor-pointer';
+        card.innerHTML = `
+          <div class="overflow-hidden bg-grey-1 aspect-[3/4] mb-4 relative">
+            <img src="${p.image || 'clothes/images/product-2.png'}" alt="${p.title}" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500"></div>
+          </div>
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-grey-7 mb-1 px-1">${p.title}</p>
+          <p class="text-[0.7rem] font-semibold text-[#44403c] px-1">${priceStr}</p>
+        `;
+        grid.appendChild(card);
+      });
+    } catch (e) {
+      console.warn('Failed to load suggested products from Sanity', e);
+      if (loading) loading.textContent = 'Failed to load recommendations.';
+    }
   }
 
   // Load the product
