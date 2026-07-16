@@ -540,18 +540,18 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.innerHTML = '';
     
     displayItems.forEach(p => {
-      const priceStr = typeof p.price === 'number' ? \`Rs.\${p.price.toLocaleString()}\` : p.price;
+      const priceStr = typeof p.price === 'number' ? `Rs.${p.price.toLocaleString()}` : p.price;
       const card = document.createElement('a');
-      card.href = \`product.html?id=\${p.id}\`;
+      card.href = `product.html?id=${p.id}`;
       card.className = 'block group cursor-pointer';
-      card.innerHTML = \`
+      card.innerHTML = `
         <div class="overflow-hidden bg-grey-1 aspect-[3/4] mb-4 relative">
-          <img src="\${p.image || 'clothes/images/product-2.png'}" alt="\${p.title}" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
+          <img src="${p.image || 'clothes/images/product-2.png'}" alt="${p.title}" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
           <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500"></div>
         </div>
-        <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-grey-7 mb-1 px-1">\${p.title}</p>
-        <p class="text-[0.7rem] font-semibold text-[#44403c] px-1">\${priceStr}</p>
-      \`;
+        <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-grey-7 mb-1 px-1">${p.title}</p>
+        <p class="text-[0.7rem] font-semibold text-[#44403c] px-1">${priceStr}</p>
+      `;
       grid.appendChild(card);
     });
   }
@@ -681,7 +681,7 @@ document.addEventListener('DOMContentLoaded', () => {
     maxDate.setDate(today.getDate() + 5);
     
     const options = { month: 'short', day: 'numeric' };
-    estDel.textContent = \`\${minDate.toLocaleDateString('en-US', options)} - \${maxDate.toLocaleDateString('en-US', options)}\`;
+    estDel.textContent = `${minDate.toLocaleDateString('en-US', options)} - ${maxDate.toLocaleDateString('en-US', options)}`;
   }
 
   // ===== SIZE CHART MODAL =====
@@ -726,14 +726,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (shareWa) {
     shareWa.addEventListener('click', () => {
       const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(\`Check out this product from Makhmal: \${currentProduct ? currentProduct.title : ''} \`);
-      window.open(\`https://wa.me/?text=\${text}\${url}\`, '_blank');
+      const text = encodeURIComponent(`Check out this product from Makhmal: ${currentProduct ? currentProduct.title : ''} `);
+      window.open(`https://wa.me/?text=${text}${url}`, '_blank');
     });
   }
   if (shareFb) {
     shareFb.addEventListener('click', () => {
       const url = encodeURIComponent(window.location.href);
-      window.open(\`https://www.facebook.com/sharer/sharer.php?u=\${url}\`, '_blank');
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
     });
   }
 
@@ -827,7 +827,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stickyCta.classList.remove('translate-y-full');
         if (currentProduct) {
           if (stickyTitle) stickyTitle.textContent = currentProduct.title;
-          if (stickyPrice) stickyPrice.textContent = typeof currentProduct.price === 'string' ? currentProduct.price : \`Rs.\${currentProduct.price.toLocaleString()}\`;
+          if (stickyPrice) stickyPrice.textContent = typeof currentProduct.price === 'string' ? currentProduct.price : `Rs.${currentProduct.price.toLocaleString()}`;
         }
       } else {
         stickyCta.classList.add('translate-y-full');
