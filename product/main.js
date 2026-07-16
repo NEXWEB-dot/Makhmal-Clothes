@@ -282,6 +282,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.title = (data.title || 'Product') + ' - MAKHMAL';
+    
+    // Update SEO Meta Tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    const metaDesc = document.querySelector('meta[name="description"]');
+    
+    if (ogTitle) ogTitle.content = document.title;
+    if (twitterTitle) twitterTitle.content = document.title;
+    if (ogDesc && data.description) ogDesc.content = data.description.substring(0, 160);
+    if (metaDesc && data.description) metaDesc.content = data.description.substring(0, 160);
+    if (ogImage && data.images && data.images.length) ogImage.content = data.images[0];
+    
+    // Update JSON-LD Product Schema
+    let schemaScript = document.getElementById('product-schema');
+    if (!schemaScript) {
+      schemaScript = document.createElement('script');
+      schemaScript.type = 'application/ld+json';
+      schemaScript.id = 'product-schema';
+      document.head.appendChild(schemaScript);
+    }
+    schemaScript.textContent = JSON.stringify({
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": data.title,
+      "image": data.images ? data.images[0] : "",
+      "description": data.description || "",
+      "sku": data.sku || "",
+      "offers": {
+        "@type": "Offer",
+        "url": window.location.href,
+        "priceCurrency": "PKR",
+        "price": typeof data.price === 'string' ? data.price.replace(/[^0-9]/g, '') : data.price,
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    });
 
     if (installmentEl) {
       const numPrice = parseInt((data.price || '').replace(/[^0-9]/g, ''));
@@ -323,6 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Suggested products
     buildSuggestedGrid(data._id);
+    addToRecentlyViewed(data);
   }
 
   // ===== SIZE BUTTONS (built dynamically from Sanity sizes[]) =====
@@ -366,6 +405,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     bindSizeButtons();
+    
+    // Update stock indicator
+    const hasStock = sizeList.some(opt => opt.stock > 0);
+    const stockInd = document.getElementById('stock-indicator');
+    if (stockInd) {
+      if (hasStock) {
+        stockInd.className = 'flex items-center gap-2 mb-8 text-[0.65rem] font-bold tracking-[0.1em] uppercase text-[#166534]';
+        stockInd.innerHTML = `
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#166534] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#166534]"></span>
+            </span>
+            <span id="stock-text">In Stock</span>
+        `;
+      } else {
+        stockInd.className = 'flex items-center gap-2 mb-8 text-[0.65rem] font-bold tracking-[0.1em] uppercase text-[#cc0000]';
+        stockInd.innerHTML = `
+            <span class="relative flex h-2 w-2">
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#cc0000]"></span>
+            </span>
+            <span id="stock-text">Out of Stock</span>
+        `;
+      }
+    }
   }
 
   function bindSizeButtons() {
@@ -435,6 +498,62 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Failed to load suggested products from Sanity', e);
       if (loading) loading.textContent = 'Failed to load recommendations.';
     }
+  }
+
+  // ===== RECENTLY VIEWED =====
+  function addToRecentlyViewed(product) {
+    if (!product || !product.title) return;
+    try {
+      let recent = JSON.parse(localStorage.getItem('makhmal_recent_products') || '[]');
+      // Remove if already exists
+      recent = recent.filter(p => p.title !== product.title);
+      // Add to front
+      recent.unshift({
+        id: product._id || urlParams.get('id') || '2',
+        title: product.title,
+        price: product.price,
+        image: product.images && product.images.length ? product.images[0] : ''
+      });
+      // Keep only last 4
+      if (recent.length > 4) recent = recent.slice(0, 4);
+      localStorage.setItem('makhmal_recent_products', JSON.stringify(recent));
+      renderRecentlyViewed(recent, product.title);
+    } catch (e) {
+      console.warn('Could not save to recently viewed', e);
+    }
+  }
+
+  function renderRecentlyViewed(recent, currentTitle) {
+    const grid = document.getElementById('recently-viewed-grid');
+    const section = document.getElementById('recently-viewed-section');
+    if (!grid || !section) return;
+    
+    // Filter out current product from view
+    const displayItems = recent.filter(p => p.title !== currentTitle);
+    
+    if (displayItems.length === 0) {
+      section.style.display = 'none';
+      return;
+    }
+    
+    section.style.display = 'block';
+    grid.innerHTML = '';
+    
+    displayItems.forEach(p => {
+      const priceStr = typeof p.price === 'number' ? \`Rs.\${p.price.toLocaleString()}\` : p.price;
+      const card = document.createElement('a');
+      card.href = \`product.html?id=\${p.id}\`;
+      card.className = 'block group cursor-pointer';
+      card.innerHTML = \`
+        <div class="overflow-hidden bg-grey-1 aspect-[3/4] mb-4 relative">
+          <img src="\${p.image || 'clothes/images/product-2.png'}" alt="\${p.title}" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500"></div>
+        </div>
+        <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-grey-7 mb-1 px-1">\${p.title}</p>
+        <p class="text-[0.7rem] font-semibold text-[#44403c] px-1">\${priceStr}</p>
+      \`;
+      grid.appendChild(card);
+    });
   }
 
   // Load the product
@@ -512,10 +631,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===== WISHLIST =====
+  function updateWishlistBadge() {
+    const badge = document.getElementById('wishlist-badge');
+    if (badge) {
+      const count = parseInt(localStorage.getItem('makhmal_wishlist_count') || '0');
+      badge.textContent = count;
+    }
+  }
+  updateWishlistBadge();
+
   const wishlistBtn = document.getElementById('add-to-cart-btn');
   if (wishlistBtn) {
     wishlistBtn.addEventListener('click', () => {
       wishlistBtn.innerHTML = '<i class="ph-fill ph-heart text-base text-danger"></i> ADDED TO WISHLIST';
+      let count = parseInt(localStorage.getItem('makhmal_wishlist_count') || '0');
+      localStorage.setItem('makhmal_wishlist_count', count + 1);
+      updateWishlistBadge();
       showToast('Added to your wishlist!', 'success');
     });
   }
@@ -537,6 +668,72 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       showToast('Thank you for subscribing!', 'success');
       newsletterForm.reset();
+    });
+  }
+
+  // ===== ESTIMATED DELIVERY =====
+  const estDel = document.getElementById('est-delivery-date');
+  if (estDel) {
+    const today = new Date();
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() + 3);
+    const maxDate = new Date(today);
+    maxDate.setDate(today.getDate() + 5);
+    
+    const options = { month: 'short', day: 'numeric' };
+    estDel.textContent = \`\${minDate.toLocaleDateString('en-US', options)} - \${maxDate.toLocaleDateString('en-US', options)}\`;
+  }
+
+  // ===== SIZE CHART MODAL =====
+  const sizeChartBtn = document.getElementById('size-chart-btn');
+  const sizeChartModal = document.getElementById('size-chart-modal');
+  const sizeChartContent = document.getElementById('size-chart-content');
+  const closeSizeChart = document.getElementById('close-size-chart');
+
+  function openSizeChart(e) {
+    e.preventDefault();
+    sizeChartModal.classList.remove('hidden');
+    sizeChartModal.classList.add('flex');
+    setTimeout(() => {
+      sizeChartModal.classList.remove('opacity-0');
+      if (sizeChartContent) sizeChartContent.classList.remove('scale-95');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSizeChartModal() {
+    sizeChartModal.classList.add('opacity-0');
+    if (sizeChartContent) sizeChartContent.classList.add('scale-95');
+    setTimeout(() => {
+      sizeChartModal.classList.add('hidden');
+      sizeChartModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  if (sizeChartBtn) sizeChartBtn.addEventListener('click', openSizeChart);
+  if (closeSizeChart) closeSizeChart.addEventListener('click', closeSizeChartModal);
+  if (sizeChartModal) {
+    sizeChartModal.addEventListener('click', e => {
+      if (e.target === sizeChartModal) closeSizeChartModal();
+    });
+  }
+
+  // ===== SHARE BUTTONS =====
+  const shareWa = document.getElementById('share-wa');
+  const shareFb = document.getElementById('share-fb');
+  
+  if (shareWa) {
+    shareWa.addEventListener('click', () => {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(\`Check out this product from Makhmal: \${currentProduct ? currentProduct.title : ''} \`);
+      window.open(\`https://wa.me/?text=\${text}\${url}\`, '_blank');
+    });
+  }
+  if (shareFb) {
+    shareFb.addEventListener('click', () => {
+      const url = encodeURIComponent(window.location.href);
+      window.open(\`https://www.facebook.com/sharer/sharer.php?u=\${url}\`, '_blank');
     });
   }
 
@@ -593,4 +790,48 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
 
   document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+
+  // ===== STICKY CTA & BACK TO TOP =====
+  const stickyCta = document.getElementById('sticky-cta');
+  const stickyBuyBtn = document.getElementById('sticky-buy-btn');
+  const stickyTitle = document.getElementById('sticky-title');
+  const stickyPrice = document.getElementById('sticky-price');
+  const backToTop = document.getElementById('back-to-top');
+
+  if (stickyBuyBtn && buyNowBtn) {
+    stickyBuyBtn.addEventListener('click', () => {
+      buyNowBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => buyNowBtn.click(), 500);
+    });
+  }
+
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    // Back to top
+    if (window.scrollY > 500) {
+      if (backToTop) backToTop.classList.remove('opacity-0', 'pointer-events-none');
+    } else {
+      if (backToTop) backToTop.classList.add('opacity-0', 'pointer-events-none');
+    }
+    
+    // Sticky CTA logic
+    if (stickyCta && buyNowBtn) {
+      const btnRect = buyNowBtn.getBoundingClientRect();
+      // Show sticky when main buy button scrolls out of view above
+      if (btnRect.bottom < 0) {
+        stickyCta.classList.remove('translate-y-full');
+        if (currentProduct) {
+          if (stickyTitle) stickyTitle.textContent = currentProduct.title;
+          if (stickyPrice) stickyPrice.textContent = typeof currentProduct.price === 'string' ? currentProduct.price : \`Rs.\${currentProduct.price.toLocaleString()}\`;
+        }
+      } else {
+        stickyCta.classList.add('translate-y-full');
+      }
+    }
+  });
 });

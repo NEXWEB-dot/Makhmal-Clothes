@@ -3,6 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore MAKHMAL's Ready To Wear collection for modern women.">
+  <meta property="og:title" content="Ready To Wear - MAKHMAL">
+  <meta property="og:description" content="Explore MAKHMAL's Ready To Wear collection for modern women.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.makhmal.com/clothes.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.makhmal.com/clothes.html">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.makhmal.com/index.html"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Woman",
+      "item": "https://www.makhmal.com/clothes.html"
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Ready to Wear",
+      "item": "https://www.makhmal.com/clothes.html"
+    }]
+  }
+  </script>
   <title>Ready To Wear - MAKHMAL</title>
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <style type="text/tailwindcss">
@@ -82,6 +112,10 @@
         <div class="flex items-center gap-6 text-xl md:text-2xl">
           <i class="ph ph-magnifying-glass cursor-pointer hover:text-primary transition-colors"></i>
           <i class="ph ph-user cursor-pointer hover:text-primary transition-colors"></i>
+          <a href="#" class="relative cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300 hidden md:block" title="Wishlist">
+            <i class="ph ph-heart"></i>
+            <span id="wishlist-badge" class="absolute -top-1.5 -right-2 bg-black text-brand-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
+          </a>
           <a href="checkout.html" class="flex items-center gap-1 cursor-pointer hover:text-primary transition-colors">
             <i class="ph ph-shopping-bag"></i>
             <span class="text-sm font-medium">0</span>
@@ -153,25 +187,40 @@
     <div class="mb-24 max-w-4xl scroll-animate">
       <h3 class="text-sm font-bold tracking-widest uppercase mb-6 text-grey-7">FAQ'S</h3>
       <div class="flex flex-col gap-[2px]">
-        <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
-          <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">HOW STITCHED DRESSES ARE DESIGNED FOR MODERN WOMEN?</span>
-          <div class="bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+        <div class="faq-item">
+          <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
+            <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">HOW STITCHED DRESSES ARE DESIGNED FOR MODERN WOMEN?</span>
+            <div class="faq-icon bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+          </div>
+          <div class="faq-answer hidden bg-brand-white p-5 text-sm text-grey-6 border border-grey-1">They are crafted keeping comfort and style in mind.</div>
         </div>
-        <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
-          <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">WHY ARE READYMADE DRESSES A POPULAR CHOICE?</span>
-          <div class="bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+        <div class="faq-item">
+          <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
+            <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">WHY ARE READYMADE DRESSES A POPULAR CHOICE?</span>
+            <div class="faq-icon bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+          </div>
+          <div class="faq-answer hidden bg-brand-white p-5 text-sm text-grey-6 border border-grey-1">Because they save time and offer the latest trends instantly.</div>
         </div>
-        <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
-          <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">WHAT TYPES OF READY TO WEAR STITCHED DRESSES ARE AVAILABLE?</span>
-          <div class="bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+        <div class="faq-item">
+          <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
+            <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">WHAT TYPES OF READY TO WEAR STITCHED DRESSES ARE AVAILABLE?</span>
+            <div class="faq-icon bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+          </div>
+          <div class="faq-answer hidden bg-brand-white p-5 text-sm text-grey-6 border border-grey-1">We offer casual, formal, and smart casual collections.</div>
         </div>
-        <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
-          <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">DO READY MADE DRESSES MAINTAIN QUALITY AND FINISH?</span>
-          <div class="bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+        <div class="faq-item">
+          <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
+            <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">DO READY MADE DRESSES MAINTAIN QUALITY AND FINISH?</span>
+            <div class="faq-icon bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+          </div>
+          <div class="faq-answer hidden bg-brand-white p-5 text-sm text-grey-6 border border-grey-1">Yes, all pieces are strictly quality checked before dispatch.</div>
         </div>
-        <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
-          <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">ARE THE SIZES STANDARDIZED?</span>
-          <div class="bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+        <div class="faq-item">
+          <div class="bg-grey-1 p-5 flex justify-between items-center cursor-pointer hover:bg-grey-2 transition-colors">
+            <span class="text-[0.75rem] font-medium tracking-widest uppercase text-grey-7">ARE THE SIZES STANDARDIZED?</span>
+            <div class="faq-icon bg-black text-brand-white w-6 h-6 flex items-center justify-center font-bold text-lg leading-none">+</div>
+          </div>
+          <div class="faq-answer hidden bg-brand-white p-5 text-sm text-grey-6 border border-grey-1">Yes, we follow standard international sizing guidelines.</div>
         </div>
       </div>
     </div>
@@ -191,7 +240,6 @@
           <div class="flex items-start gap-3">
             <i class="ph ph-phone text-xl mt-1"></i>
             <div>
-              <a href="tel:+92042111738145" class="hover:text-primary transition-colors block">+92(0)42 111-738-145</a>
               <a href="tel:+92042111738145" class="hover:text-primary transition-colors block">+92(0)42 111-738-145</a>
             </div>
           </div>
@@ -236,7 +284,7 @@
       
       <!-- Bottom Footer -->
       <div class="mt-20 pt-8 border-t border-grey-3 flex flex-col md:flex-row justify-between items-center text-[0.65rem] text-grey-5 uppercase tracking-widest">
-        <div>© COPYRIGHT 2024 MAKHMAL</div>
+        <div>© COPYRIGHT 2026 MAKHMAL</div>
         <div class="flex gap-4 mt-4 md:mt-0 items-center">
           <!-- Using standard images or SVGs for payment methods could be better, but we'll use placeholder text or icons -->
           <i class="ph-fill ph-mastercard-logo text-3xl text-black"></i>
@@ -245,6 +293,10 @@
       </div>
     </div>
   </footer>
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-6 left-6 z-[90] bg-black text-brand-white w-10 h-10 rounded-full flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-primary shadow-lg">
+    <i class="ph ph-caret-up text-xl"></i>
+  </button>
   <script src="clothes/main.js"></script>
   <script src="location.js"></script>
   <script>
@@ -252,6 +304,15 @@
     const SANITY_PROJECT_ID = '4pv1hk2n';
     const SANITY_DATASET = 'production';
     const SANITY_API_VERSION = '2024-01-01';
+    
+    function updateWishlistBadge() {
+      const badge = document.getElementById('wishlist-badge');
+      if (badge) {
+        const count = parseInt(localStorage.getItem('makhmal_wishlist_count') || '0');
+        badge.textContent = count;
+      }
+    }
+    updateWishlistBadge();
 
     function sanityQueryUrl(query) {
       const base = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}`;

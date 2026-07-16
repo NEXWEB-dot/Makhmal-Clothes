@@ -5,10 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FLORAL SILK BLEND SHIRT - MAKHMAL</title>
   <meta name="description" content="Shop the Floral Silk Blend Shirt at Makhmal. Premium silk blend satin with a relaxed, flowing silhouette in blush pink.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="canonical" href="https://makhmalonline.pk/product.html">
+  <meta property="og:title" content="FLORAL SILK BLEND SHIRT - MAKHMAL">
+  <meta property="og:description" content="Shop the Floral Silk Blend Shirt at Makhmal. Premium silk blend satin with a relaxed, flowing silhouette in blush pink.">
+  <meta property="og:image" content="clothes/images/product-2.png">
+  <meta property="og:url" content="https://makhmalonline.pk/product.html">
+  <meta property="og:type" content="product">
+  <meta name="twitter:card" content="summary_large_image">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary: #00a1e0;
+      --color-brand-black: #000000;
+      --color-brand-white: #ffffff;
+      --color-grey-7: #222222;
+      --color-grey-4: #999999;
+      --color-grey-1: #f9f9f9;
+      --color-success: #008827;
+      --color-danger: #cc0000;
+
+      --font-sans: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-montserrat: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+      --spacing-container-padding: 15px;
+      --spacing-row-margin: 1rem;
+      --spacing-section-desktop: 100px;
+      --spacing-section-mobile: 50px;
+
+      --radius-default: 0.1875rem;
+      --radius-pill: 50px;
+      --radius-button: 0px;
+    }
+
+    @layer base {
+      body {
+        font-family: var(--font-sans);
+        color: var(--color-grey-7);
+        background-color: var(--color-brand-white);
+        overflow-x: hidden;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+  </style>
   <link rel="stylesheet" href="product/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://4pv1hk2n.apicdn.sanity.io" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
@@ -56,6 +104,10 @@
         <div class="flex items-center justify-end space-x-6 w-1/3">
           <i id="search-icon" class="ph ph-magnifying-glass text-xl cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300"></i>
           <i id="user-icon" class="ph ph-user text-xl cursor-pointer hidden md:block hover:text-primary transition-colors hover:scale-110 duration-300"></i>
+          <a href="#" class="relative cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300 hidden md:block" title="Wishlist">
+            <i class="ph ph-heart text-xl"></i>
+            <span id="wishlist-badge" class="absolute -top-1.5 -right-2 bg-black text-brand-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
+          </a>
           <a href="checkout.html" id="cart-icon" class="relative cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300">
             <i class="ph ph-shopping-bag text-xl"></i>
             <span id="cart-badge" class="absolute -top-1.5 -right-2 bg-primary text-brand-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
@@ -171,13 +223,21 @@
           <h1 id="product-title" class="text-2xl md:text-3xl font-bold tracking-[0.05em] uppercase mb-2 text-[#1c1917]" style="font-family:'Cormorant Garamond',serif;line-height:1.2;">FLORAL SILK BLEND SHIRT</h1>
           <p id="product-price" class="text-xl font-bold text-[#1c1917] mb-4">Rs.8,990</p>
           <div class="w-16 h-[1px] bg-gradient-to-r from-[#c4a97d] to-transparent mb-5"></div>
-          <p id="product-sku" class="text-[0.65rem] uppercase tracking-[0.2em] text-[#a8a29e] mb-8 font-semibold">SKU: MK-RS-26-004-PNK</p>
+          <p id="product-sku" class="text-[0.65rem] uppercase tracking-[0.2em] text-[#a8a29e] mb-2 font-semibold">SKU: MK-RS-26-004-PNK</p>
+          
+          <div id="stock-indicator" class="flex items-center gap-2 mb-8 text-[0.65rem] font-bold tracking-[0.1em] uppercase text-[#166534]">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#166534] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#166534]"></span>
+            </span>
+            <span id="stock-text">In Stock</span>
+          </div>
 
           <!-- Size Selector -->
           <div class="mb-8">
             <div class="flex justify-between items-center mb-4">
               <span class="text-[0.65rem] uppercase font-bold tracking-[0.15em] text-[#44403c]">Select Your Size</span>
-              <a href="#" class="text-[0.6rem] uppercase tracking-[0.15em] underline text-[#8b7355] hover:text-[#1c1917] transition-colors font-semibold">Size Chart</a>
+              <button id="size-chart-btn" class="text-[0.6rem] uppercase tracking-[0.15em] underline text-[#8b7355] hover:text-[#1c1917] transition-colors font-semibold">Size Chart</button>
             </div>
             <!-- Sizes injected dynamically from Sanity -->
             <div class="flex flex-wrap gap-3" id="size-selector"></div>
@@ -231,6 +291,13 @@
           <!-- Trust / Delivery -->
           <div class="mb-8 grid grid-cols-1 gap-3">
             <div class="flex items-center gap-4 p-4 border border-[#eae8e4] bg-[#faf8f5]">
+              <i class="ph ph-calendar text-2xl text-[#8b7355]"></i>
+              <div>
+                <p class="text-[0.65rem] font-bold uppercase tracking-[0.1em] text-[#1c1917] mb-1">Estimated Delivery</p>
+                <p id="est-delivery-date" class="text-[0.6rem] text-[#78716c]"></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 border border-[#eae8e4] bg-[#faf8f5]">
               <i class="ph ph-truck text-2xl text-[#8b7355]"></i>
               <div>
                 <p class="text-[0.65rem] font-bold uppercase tracking-[0.1em] text-[#1c1917] mb-1">Fast Delivery</p>
@@ -249,14 +316,50 @@
           <!-- Share -->
           <div class="flex items-center gap-5 text-[#78716c] pt-6 border-t border-[#eae8e4]">
             <span class="text-[0.6rem] uppercase tracking-[0.2em] font-bold text-[#1c1917]">Share</span>
-            <i class="ph ph-whatsapp-logo text-xl cursor-pointer hover:text-[#2d6a4f] transition-colors" title="Share on WhatsApp"></i>
-            <i class="ph ph-facebook-logo text-xl cursor-pointer hover:text-[#1877f2] transition-colors" title="Share on Facebook"></i>
+            <i id="share-wa" class="ph ph-whatsapp-logo text-xl cursor-pointer hover:text-[#2d6a4f] transition-colors" title="Share on WhatsApp"></i>
+            <i id="share-fb" class="ph ph-facebook-logo text-xl cursor-pointer hover:text-[#1877f2] transition-colors" title="Share on Facebook"></i>
             <i id="copy-link-btn" class="ph ph-link text-xl cursor-pointer hover:text-[#1c1917] transition-colors" title="Copy Link"></i>
           </div>
         </div>
       </div>
     </div>
   </main>
+
+  <!-- Reviews Section -->
+  <section class="container mx-auto px-4 max-w-[1000px] mb-24 scroll-animate border-t border-grey-2 pt-16">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+      <div>
+        <h3 class="text-xl md:text-2xl font-bold tracking-[0.1em] uppercase mb-2 text-[#1c1917]" style="font-family:'Cormorant Garamond',serif;">Customer Reviews</h3>
+        <div class="flex items-center gap-2">
+          <div class="flex text-[#c4a97d] text-lg">
+            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star-half"></i>
+          </div>
+          <span class="text-sm font-semibold">4.8</span>
+          <span class="text-xs text-grey-4">(12 reviews)</span>
+        </div>
+      </div>
+      <button class="border border-[#1c1917] text-[#1c1917] px-6 py-2.5 text-xs font-bold tracking-widest uppercase hover:bg-[#1c1917] hover:text-white transition-colors w-full md:w-auto">Write a Review</button>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="p-6 bg-[#faf8f5] border border-[#eae8e4]">
+        <div class="flex text-[#c4a97d] mb-3 text-sm">
+          <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+        </div>
+        <h4 class="font-bold text-sm mb-2">Absolutely Beautiful</h4>
+        <p class="text-xs text-[#44403c] leading-relaxed mb-4">The silk blend feels incredibly luxurious against the skin. The floral print is subtle yet elegant. Definitely worth the price.</p>
+        <p class="text-[0.65rem] text-grey-4 uppercase tracking-widest font-semibold">— Sarah K. <i class="ph-fill ph-check-circle text-success ml-1"></i> Verified Buyer</p>
+      </div>
+      <div class="p-6 bg-[#faf8f5] border border-[#eae8e4]">
+        <div class="flex text-[#c4a97d] mb-3 text-sm">
+          <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph ph-star"></i>
+        </div>
+        <h4 class="font-bold text-sm mb-2">Great fit, true to size</h4>
+        <p class="text-xs text-[#44403c] leading-relaxed mb-4">I was worried about the sizing but it fits perfectly according to the size chart. The color is slightly darker in person but still gorgeous.</p>
+        <p class="text-[0.65rem] text-grey-4 uppercase tracking-widest font-semibold">— Fatima M. <i class="ph-fill ph-check-circle text-success ml-1"></i> Verified Buyer</p>
+      </div>
+    </div>
+  </section>
 
   <!-- Lightbox -->
   <div id="lightbox" class="fixed inset-0 z-[90] bg-black/95 hidden items-center justify-center backdrop-blur-sm">
@@ -284,6 +387,93 @@
   </section>
 
   <!-- Footer -->
+  
+  <!-- Recently Viewed Section -->
+  <section class="container mx-auto px-4 max-w-[1440px] mb-24 scroll-animate" id="recently-viewed-section" style="display:none;">
+    <h3 class="text-center text-sm font-bold tracking-[0.1em] uppercase mb-12 text-grey-7">RECENTLY VIEWED</h3>
+    <div id="recently-viewed-grid" class="grid grid-cols-2 md:grid-cols-4 gap-y-16 gap-x-1">
+      <!-- Injected by JS -->
+    </div>
+  </section>
+
+  <!-- Size Chart Modal -->
+  <div id="size-chart-modal" class="fixed inset-0 z-[100] bg-black/60 hidden items-center justify-center backdrop-blur-sm opacity-0 transition-opacity duration-300">
+    <div class="bg-white max-w-2xl w-full mx-4 shadow-2xl relative transform scale-95 transition-transform duration-300" id="size-chart-content">
+      <button id="close-size-chart" class="absolute top-4 right-4 text-grey-5 hover:text-black z-10">
+        <i class="ph ph-x text-2xl"></i>
+      </button>
+      <div class="p-8 max-h-[90vh] overflow-y-auto">
+        <h2 class="text-2xl font-bold tracking-widest uppercase mb-2 text-center" style="font-family:'Cormorant Garamond',serif;">Size Guide</h2>
+        <p class="text-xs text-center text-grey-5 mb-8">All measurements are in inches. These are garment measurements, not body measurements.</p>
+        
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse min-w-[400px]">
+            <thead>
+              <tr class="bg-[#faf8f5] border-b border-black text-[#1c1917]">
+                <th class="py-3 px-4 font-bold uppercase tracking-widest">Size</th>
+                <th class="py-3 px-4 font-bold uppercase tracking-widest">Chest</th>
+                <th class="py-3 px-4 font-bold uppercase tracking-widest">Waist</th>
+                <th class="py-3 px-4 font-bold uppercase tracking-widest">Hip</th>
+                <th class="py-3 px-4 font-bold uppercase tracking-widest">Length</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-[#eae8e4]">
+                <td class="py-3 px-4 font-bold">XS</td>
+                <td class="py-3 px-4">36</td>
+                <td class="py-3 px-4">34</td>
+                <td class="py-3 px-4">38</td>
+                <td class="py-3 px-4">38</td>
+              </tr>
+              <tr class="border-b border-[#eae8e4]">
+                <td class="py-3 px-4 font-bold">S</td>
+                <td class="py-3 px-4">38</td>
+                <td class="py-3 px-4">36</td>
+                <td class="py-3 px-4">40</td>
+                <td class="py-3 px-4">39</td>
+              </tr>
+              <tr class="border-b border-[#eae8e4]">
+                <td class="py-3 px-4 font-bold">M</td>
+                <td class="py-3 px-4">40</td>
+                <td class="py-3 px-4">38</td>
+                <td class="py-3 px-4">42</td>
+                <td class="py-3 px-4">40</td>
+              </tr>
+              <tr class="border-b border-[#eae8e4]">
+                <td class="py-3 px-4 font-bold">L</td>
+                <td class="py-3 px-4">43</td>
+                <td class="py-3 px-4">41</td>
+                <td class="py-3 px-4">45</td>
+                <td class="py-3 px-4">41</td>
+              </tr>
+              <tr class="border-b border-[#eae8e4]">
+                <td class="py-3 px-4 font-bold">XL</td>
+                <td class="py-3 px-4">46</td>
+                <td class="py-3 px-4">44</td>
+                <td class="py-3 px-4">48</td>
+                <td class="py-3 px-4">42</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Mobile CTA -->
+  <div id="sticky-cta" class="fixed bottom-0 left-0 w-full bg-white border-t border-[#eae8e4] p-3 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-[60] transform translate-y-full transition-transform duration-300 lg:hidden flex items-center justify-between">
+    <div class="flex flex-col">
+      <span class="text-[0.6rem] font-bold uppercase tracking-widest text-[#44403c] mb-0.5 truncate max-w-[180px]" id="sticky-title">FLORAL SILK BLEND SHIRT</span>
+      <span class="text-sm font-bold text-[#1c1917]" id="sticky-price">Rs.8,990</span>
+    </div>
+    <button id="sticky-buy-btn" class="bg-[#1c1917] text-white h-11 px-6 uppercase tracking-[0.2em] text-[0.65rem] font-bold">Buy Now</button>
+  </div>
+
+  <!-- Back To Top Button -->
+  <button id="back-to-top" class="fixed bottom-20 right-6 w-10 h-10 bg-black text-white flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50 hover:bg-grey-7 shadow-lg rounded-full">
+    <i class="ph ph-arrow-up"></i>
+  </button>
+
   <footer class="bg-grey-1 pt-20 pb-12 scroll-animate">
     <div class="container mx-auto px-4 max-w-[1440px]">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12 text-xs text-grey-6 uppercase tracking-widest leading-loose">

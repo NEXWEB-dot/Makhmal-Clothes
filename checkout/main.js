@@ -85,22 +85,24 @@ document.addEventListener('DOMContentLoaded', () => {
   let productId = urlParams.get('id') || 2;
   let productQty = urlParams.get('qty') || 1;
   let productSize = urlParams.get('size') || 'S';
-
-  const product = products[productId] || products[2];
-  let productTitle = product.title;
+  
+  // Read Sanity data from URL params directly, fallback to local database
+  let productTitle = urlParams.get('title') || (products[productId] ? products[productId].title : products[2].title);
+  let productPrice = urlParams.get('price') || (products[productId] ? products[productId].price : products[2].price);
+  let productImage = urlParams.get('image') || (products[productId] ? products[productId].image : products[2].image);
   
   // Calculate Totals
-  const rawPriceStr = product.price.replace(/[^0-9]/g, '');
+  const rawPriceStr = productPrice.replace(/[^0-9]/g, '');
   const priceNum = parseInt(rawPriceStr, 10);
   const totalPrice = priceNum * parseInt(productQty, 10);
   const formattedTotal = `Rs.${totalPrice.toLocaleString()}`;
 
   // Populate DOM
-  document.getElementById('cart-image').src = product.image;
+  document.getElementById('cart-image').src = productImage;
   document.getElementById('cart-title').innerText = productTitle;
   document.getElementById('cart-size').innerText = productSize;
   document.getElementById('cart-qty').innerText = productQty;
-  document.getElementById('cart-price').innerText = product.price;
+  document.getElementById('cart-price').innerText = productPrice;
   document.getElementById('subtotal').innerText = formattedTotal;
   document.getElementById('total').innerText = formattedTotal;
 
@@ -248,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
         + `Please confirm my order!`;
 
     setTimeout(() => {
-      window.open(`https://wa.me/923000000000?text=${encodeURIComponent(msg)}`, '_blank');
+      window.open(`https://wa.me/923165521689?text=${encodeURIComponent(msg)}`, '_blank');
       btn.innerHTML = `<i class="ph-fill ph-whatsapp-logo"></i> Send via WhatsApp`;
       btn.disabled = false;
       
