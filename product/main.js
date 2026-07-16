@@ -271,7 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const priceEl       = document.getElementById('product-price');
     const skuEl         = document.getElementById('product-sku');
     const breadcrumbEl  = document.getElementById('breadcrumb-name');
-    const installmentEl = document.getElementById('installment-price');
 
     if (titleEl) titleEl.innerText = data.title || '';
     if (priceEl) priceEl.innerText = data.price  || '';
@@ -320,11 +319,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "itemCondition": "https://schema.org/NewCondition"
       }
     });
-
-    if (installmentEl) {
-      const numPrice = parseInt((data.price || '').replace(/[^0-9]/g, ''));
-      if (numPrice) installmentEl.innerText = `Rs.${Math.round(numPrice / 3).toLocaleString()}`;
-    }
 
     // ----- SIZES (from Sanity sizes[] array) -----
     buildSizeButtons(data.sizes);
