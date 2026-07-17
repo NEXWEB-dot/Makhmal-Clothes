@@ -601,10 +601,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const qty   = parseInt(qtyInput.value) || 1;
       const p     = currentProduct || products[2];
-      const title = encodeURIComponent(p.title);
-      const price = encodeURIComponent(p.price);
-      const img   = encodeURIComponent(Array.isArray(p.images) ? p.images[0] : (p.image || ''));
-      const size  = encodeURIComponent(selectedSize);
+
+      const priceStr = String(p.price).replace(/[^0-9]/g, '');
+      const item = {
+          id: (p.sku || p.title.replace(/\s+/g, '-').toLowerCase()) + '-' + selectedSize,
+          name: p.title,
+          price: parseInt(priceStr, 10) || 0,
+          image: Array.isArray(p.images) ? p.images[0] : (p.image || ''),
+          qty: qty,
+          size: selectedSize
+      };
+      let cart = [];
+      try {
+        cart = JSON.parse(localStorage.getItem('makhmal_cart') || '[]');
+      } catch(e) {}
+      
+      const existing = cart.find(i => i.id === item.id);
+      if (existing) {
+        existing.qty += item.qty;
+      } else {
+        cart.push(item);
+      }
+      localStorage.setItem('makhmal_cart', JSON.stringify(cart));
 
       const originalHTML = buyNowBtn.innerHTML;
       buyNowBtn.innerHTML = '<i class="ph ph-spinner text-base animate-spin"></i> ADDING TO CART...';
@@ -616,10 +634,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       showToast(`${p.title.split(' ').slice(0, 3).join(' ')} added to cart!`, 'success');
       setTimeout(() => {
-        buyNowBtn.innerHTML = '<i class="ph ph-check text-base"></i> PROCEEDING TO CHECKOUT...';
+        buyNowBtn.innerHTML = '<i class="ph ph-check text-base"></i> ADDED TO CART';
+        buyNowBtn.disabled = false;
+        buyNowBtn.style.opacity = '1';
         setTimeout(() => {
-          window.location.href = `checkout.html?title=${title}&price=${price}&image=${img}&qty=${qty}&size=${size}`;
-        }, 600);
+           buyNowBtn.innerHTML = originalHTML;
+        }, 2000);
       }, 900);
     });
   }
@@ -633,6 +653,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   updateWishlistBadge();
+
+  function updateCartBadge() {
+    let cartCount = 0;
+    try {
+      const cart = JSON.parse(localStorage.getItem('makhmal_cart') || '[]');
+      cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
+    } catch(e) {}
+    const badge = document.getElementById('cart-badge');
+    if (badge) badge.textContent = cartCount;
+  }
+  updateCartBadge();
 
   const wishlistBtn = document.getElementById('add-to-cart-btn');
   if (wishlistBtn) {

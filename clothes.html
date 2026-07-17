@@ -111,14 +111,13 @@
         <!-- Right: Icons -->
         <div class="flex items-center gap-6 text-xl md:text-2xl">
           <i class="ph ph-magnifying-glass cursor-pointer hover:text-primary transition-colors"></i>
-          <i class="ph ph-user cursor-pointer hover:text-primary transition-colors"></i>
           <a href="#" class="relative cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300 hidden md:block" title="Wishlist">
             <i class="ph ph-heart"></i>
             <span id="wishlist-badge" class="absolute -top-1.5 -right-2 bg-black text-brand-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
           </a>
           <a href="checkout.html" class="flex items-center gap-1 cursor-pointer hover:text-primary transition-colors">
             <i class="ph ph-shopping-bag"></i>
-            <span class="text-sm font-medium">0</span>
+            <span id="cart-badge" class="text-sm font-medium">0</span>
           </a>
         </div>
       </div>
@@ -313,6 +312,17 @@
       }
     }
     updateWishlistBadge();
+
+    function updateCartBadge() {
+      let cartCount = 0;
+      try {
+        const cart = JSON.parse(localStorage.getItem('makhmal_cart') || '[]');
+        cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      } catch(e) {}
+      const badge = document.getElementById('cart-badge');
+      if (badge) badge.textContent = cartCount;
+    }
+    updateCartBadge();
 
     function sanityQueryUrl(query) {
       const base = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}`;

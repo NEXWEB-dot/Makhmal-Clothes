@@ -140,15 +140,14 @@
         <!-- Right Icons -->
         <div class="flex items-center justify-end space-x-6 w-1/3">
           <i id="search-icon" class="ph ph-magnifying-glass text-xl cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300"></i>
-          <i id="user-icon" class="ph ph-user text-xl cursor-pointer hidden md:block hover:text-primary transition-colors hover:scale-110 duration-300"></i>
           <a href="#" class="relative cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300 hidden md:block" title="Wishlist">
             <i class="ph ph-heart text-xl"></i>
             <span id="wishlist-badge" class="absolute -top-1.5 -right-2 bg-black text-brand-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
           </a>
-          <div id="cart-icon" class="relative cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300">
+          <a href="checkout.html" id="cart-icon" class="relative cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300">
             <i class="ph ph-shopping-bag text-xl"></i>
             <span id="cart-badge" class="absolute -top-1.5 -right-2 bg-primary text-brand-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -570,7 +569,12 @@
       // --- HELPER: SHOW TOAST ---
       const toastContainer = document.getElementById('toast-container');
       let cartCount = 0;
+      try {
+        const cart = JSON.parse(localStorage.getItem('makhmal_cart') || '[]');
+        cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      } catch(e) {}
       const cartBadge = document.getElementById('cart-badge');
+      if (cartBadge) cartBadge.innerText = cartCount;
       
       function updateWishlistBadge() {
         const badge = document.getElementById('wishlist-badge');
@@ -648,7 +652,7 @@
         }
       };
 
-      cartIcon.addEventListener('click', () => toggleCart(true));
+      // cartIcon.addEventListener('click', () => toggleCart(true));
       closeCartBtn.addEventListener('click', () => toggleCart(false));
       continueShoppingBtn.addEventListener('click', () => toggleCart(false));
 
@@ -675,15 +679,17 @@
       const loginModalContent = document.getElementById('login-modal-content');
       const loginForm = document.getElementById('login-form');
 
-      userIcon.addEventListener('click', () => {
-        loginModal.classList.remove('hidden');
-        setTimeout(() => {
-          loginModal.classList.remove('opacity-0');
-          loginModalContent.classList.remove('scale-95');
-          loginModalContent.classList.add('scale-100');
-        }, 10);
-        document.body.style.overflow = 'hidden';
-      });
+      if (userIcon) {
+        userIcon.addEventListener('click', () => {
+          loginModal.classList.remove('hidden');
+          setTimeout(() => {
+            loginModal.classList.remove('opacity-0');
+            loginModalContent.classList.remove('scale-95');
+            loginModalContent.classList.add('scale-100');
+          }, 10);
+          document.body.style.overflow = 'hidden';
+        });
+      }
 
       const closeLogin = () => {
         loginModal.classList.add('opacity-0');
