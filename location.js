@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
         </label>
         <label class="payment-option-clean">
           <input type="radio" name="payment" value="banktransfer"
-            data-acc="01070010128864860018"
+            data-acc="03165521689"
+            data-accnum="01070010128864860018"
             data-iban="PK67ABPA0010128864860018"
             data-name="Amama Malik">
           <i class="ph ph-bank icon"></i>
@@ -62,6 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
               <strong>Amama Malik</strong><br>
               Acc: <strong>01070010128864860018</strong><br>
               IBAN: <strong>PK67ABPA0010128864860018</strong>
+            </div>
+          </div>
+        </label>
+        <label class="payment-option-clean">
+          <input type="radio" name="payment" value="cod">
+          <i class="ph ph-money icon"></i>
+          <div class="info">
+            <p class="title">Cash on Delivery</p>
+            <div class="payment-instructions hidden" style="font-size:12px; color:#555; margin-top:8px; line-height:1.8;">
+              Pay with cash upon delivery.
             </div>
           </div>
         </label>
