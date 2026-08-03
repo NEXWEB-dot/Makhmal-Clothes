@@ -1,0 +1,81 @@
+/* =========================================
+   MAKHMAL — Product Page Styles
+   ========================================= */
+
+/* --- Gallery --- */
+#main-image-wrapper {
+  cursor: zoom-in;
+}
+
+#thumbnail-strip {
+  max-height: 600px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+#thumbnail-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.thumb-btn {
+  display: block;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+.thumb-btn:hover {
+  opacity: 0.85;
+}
+
+/* --- Scroll animations --- */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.scroll-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Tab content --- */
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tab-button {
+  color: #666;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+.tab-button:hover { color: #000; }
+.tab-button.active {
+  color: #1c1917;
+  border-bottom-color: #1c1917;
+}
+
+/* --- Lightbox --- */
+#lightbox {
+  animation: lbFadeIn 0.25s ease-out forwards;
+}
+@keyframes lbFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* --- Mobile dot pill animation --- */
+.dot {
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+/* --- Size button disabled line --- */
+button:disabled .absolute.rotate-45 {
+  top: 50%;
+}

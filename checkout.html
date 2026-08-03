@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Makhmal</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="description" content="Secure checkout for Makhmal — premium Pakistani fashion.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="checkout/style.css">
+  <script defer src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="announcement-bar-inner">
+      <div style="width:60px;"></div>
+      <div style="flex:1;">Free delivery on all orders over Rs. 3500</div>
+      <div style="width:60px; text-align:right;">
+        <select class="region-selector">
+          <option value="Pakistan" style="color:#000;">PK</option>
+          <option value="USA" style="color:#000;">USA</option>
+          <option value="UK" style="color:#000;">UK</option>
+          <option value="UAE" style="color:#000;">UAE</option>
+          <option value="Global" style="color:#000;">Global</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="checkout-header">
+    <a href="index.html" class="checkout-logo">Makhmal</a>
+    <div class="checkout-header-right">
+      <a href="clothes.html" class="back-link">
+        <i class="ph ph-arrow-left"></i> <span class="back-text">Continue Shopping</span><span class="back-text-mobile">Back</span>
+      </a>
+      <div class="header-cart-icon">
+        <i class="ph ph-shopping-bag"></i>
+        <span id="cart-badge" class="cart-badge">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Steps -->
+  <div class="stepper">
+    <div class="step active" id="step-1-indicator">
+      <div class="step-circle active" id="step-1-circle">1</div>
+      <span class="step-label">Cart</span>
+    </div>
+    <div class="step-line done" id="line-1"></div>
+    <div class="step" id="step-2-indicator">
+      <div class="step-circle" id="step-2-circle">2</div>
+      <span class="step-label">Delivery</span>
+    </div>
+    <div class="step-line" id="line-2"></div>
+    <div class="step" id="step-3-indicator">
+      <div class="step-circle" id="step-3-circle">3</div>
+      <span class="step-label" id="step-3-label">Payment</span>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="checkout-main">
+
+    <!-- LEFT: Sections -->
+    <div class="checkout-left">
+
+      <!-- STEP 1: Cart Review -->
+      <section id="section-cart" class="checkout-section fade-up">
+        <h2 class="section-title">
+          <span class="section-number">1</span>
+          Your Cart
+        </h2>
+
+        <div id="cart-items-list">
+          <!-- filled by JS -->
+        </div>
+
+        <div id="empty-cart-msg" class="empty-cart hidden">
+          <i class="ph ph-shopping-bag empty-cart-icon"></i>
+          <p class="empty-cart-text">Your cart is empty</p>
+          <a href="clothes.html" class="btn-primary" style="display:inline-block; width:auto; padding:12px 32px; text-decoration:none;">Start Shopping</a>
+        </div>
+
+        <div id="cart-actions" class="cart-actions hidden">
+          <button type="button" onclick="clearCart()" class="clear-cart-btn">
+            <i class="ph ph-trash"></i> Clear Cart
+          </button>
+          <button type="button" onclick="goToStep(2)" id="to-delivery-btn" class="btn-primary">
+            Proceed to Delivery <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 2: Delivery -->
+      <section id="section-delivery" class="checkout-section fade-up hidden">
+        <h2 class="section-title">
+          <span class="section-number">2</span>
+          Delivery Information
+        </h2>
+
+        <form id="delivery-form" onsubmit="return false;">
+          <div class="input-row">
+            <div class="floating-input">
+              <input type="text" id="first-name" required placeholder=" ">
+              <label for="first-name">First Name *</label>
+            </div>
+            <div class="floating-input">
+              <input type="text" id="last-name" required placeholder=" ">
+              <label for="last-name">Last Name *</label>
+            </div>
+          </div>
+
+          <div class="floating-input">
+            <input type="tel" id="phone" required placeholder=" ">
+            <label for="phone">Phone Number *</label>
+          </div>
+
+          <div class="floating-input">
+            <input type="email" id="email" placeholder=" ">
+            <label for="email">Email Address</label>
+          </div>
+
+          <div style="height:1px; background:#f0f0f0; margin:1.5rem 0;"></div>
+
+          <div class="floating-input">
+            <input type="text" id="address" required placeholder=" ">
+            <label for="address">Street Address *</label>
+          </div>
+
+          <div class="input-row">
+            <div class="floating-input" id="city-container">
+              <input type="text" id="city" required placeholder=" ">
+              <label for="city">City *</label>
+            </div>
+            <div class="floating-input" id="state-container">
+              <input type="text" id="state" placeholder=" ">
+              <label for="state">Province / State</label>
+            </div>
+          </div>
+
+          <div class="floating-input">
+            <textarea id="notes" rows="3" placeholder=" " style="width:100%;padding:22px 14px 8px;border:1px solid #e0e0e0;border-radius:8px;font-size:15px;background:#fff;color:#000;transition:all 0.2s;box-sizing:border-box;outline:none;font-family:inherit;resize:none;"></textarea>
+            <label for="notes">Order Notes (Optional)</label>
+          </div>
+
+          <!-- Shipping Method -->
+          <div class="shipping-methods">
+            <p class="shipping-label">Shipping Method</p>
+            <label class="radio-card selected" id="ship-standard-card" onclick="selectShipping('standard', this)">
+              <input type="radio" name="shipping" value="standard" checked>
+              <div class="radio-card-content">
+                <div>
+                  <p class="radio-card-title">Standard Delivery</p>
+                  <p class="radio-card-desc">3–5 business days</p>
+                </div>
+                <span class="shipping-price free" id="ship-standard-price">FREE</span>
+              </div>
+            </label>
+            <label class="radio-card" id="ship-express-card" onclick="selectShipping('express', this)">
+              <input type="radio" name="shipping" value="express">
+              <div class="radio-card-content">
+                <div>
+                  <p class="radio-card-title">Express Delivery</p>
+                  <p class="radio-card-desc">1–2 business days</p>
+                </div>
+                <span class="shipping-price">Rs. 350</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="button" onclick="goToStep(1)" class="btn-primary btn-secondary"><i class="ph ph-arrow-left"></i> Back</button>
+            <button type="button" onclick="submitDelivery()" class="btn-primary">Continue to Payment <i class="ph ph-arrow-right"></i></button>
+          </div>
+        </form>
+      </section>
+
+      <!-- STEP 3: Payment -->
+      <section id="section-payment" class="checkout-section fade-up hidden">
+        <h2 class="section-title">
+          <span class="section-number">3</span>
+          Payment Method
+        </h2>
+
+        <div class="payment-methods" id="payment-options-container">
+          <!-- location.js injects methods here -->
+        </div>
+
+        <!-- Delivery summary -->
+        <div class="delivery-summary">
+          <p class="delivery-summary-label">Delivery To</p>
+          <p class="delivery-summary-name" id="summary-name">—</p>
+          <p class="delivery-summary-detail" id="summary-address">—</p>
+          <p class="delivery-summary-detail" id="summary-phone">—</p>
+          <button type="button" onclick="goToStep(2)" class="edit-link">Edit</button>
+        </div>
+
+        <div class="actions">
+          <button type="button" onclick="goToStep(2)" class="btn-primary btn-secondary"><i class="ph ph-arrow-left"></i> Back</button>
+          <button type="button" onclick="placeOrder()" id="btn-place-order" class="btn-primary"><i class="ph ph-lock-key"></i> Complete Order</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT: Order Summary -->
+    <aside class="checkout-sidebar">
+      <div class="sidebar-inner">
+        <h3 class="sidebar-title">Order Summary</h3>
+
+        <div id="summary-items" class="summary-items">
+          <!-- filled by JS -->
+        </div>
+
+        <div class="summary-totals">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotal-display">Rs. 0</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span id="shipping-display" class="shipping-free">FREE</span>
+          </div>
+          <div class="summary-row summary-total">
+            <span>Total</span>
+            <span id="total-display">Rs. 0</span>
+          </div>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <i class="ph ph-lock-key"></i>
+            <p>Secure</p>
+          </div>
+          <div class="trust-badge">
+            <i class="ph ph-truck"></i>
+            <p>Fast Delivery</p>
+          </div>
+          <div class="trust-badge">
+            <i class="ph ph-arrows-left-right"></i>
+            <p>Easy Returns</p>
+          </div>
+        </div>
+
+        <!-- WhatsApp help -->
+        <a href="https://wa.me/923165521689" target="_blank" class="whatsapp-help">
+          <i class="ph-fill ph-whatsapp-logo"></i> Need help? WhatsApp us
+        </a>
+      </div>
+    </aside>
+  </main>
+
+  <!-- SUCCESS OVERLAY -->
+  <div id="success-overlay" class="success-overlay">
+    <div class="success-content">
+      <div class="success-icon-wrap">
+        <i class="ph-fill ph-check-circle"></i>
+      </div>
+      <h1 class="success-heading">Order Placed!</h1>
+      <p class="success-subtext">Thank you for shopping with <strong>Makhmal</strong>.</p>
+      <p class="success-note">Your order has been confirmed. We'll contact you shortly.</p>
+
+      <div class="success-details" id="receipt-modal-content">
+        <div class="success-row"><span>Order ID</span><span id="order-id">#MK-000000</span></div>
+        <div class="success-row"><span>Customer</span><span id="r-name">—</span></div>
+        <div class="success-row"><span>Phone</span><span id="r-phone">—</span></div>
+        <div class="success-row"><span>Items</span><span id="success-items">—</span></div>
+        <div class="success-row"><span>Total</span><span id="r-total">—</span></div>
+        <div class="success-row"><span>Payment</span><span id="r-payment-label">—</span></div>
+        <!-- Account details for non-COD -->
+        <div id="r-account-details-box" class="account-details-box hidden">
+          <p class="account-details-label">Please send amount to:</p>
+          <p id="r-account-number" class="account-details-number"></p>
+          <p id="r-account-name" class="account-details-name"></p>
+        </div>
+      </div>
+
+      <div class="success-actions">
+        <button id="btn-wa-send" class="btn-primary btn-whatsapp">
+          <i class="ph-fill ph-whatsapp-logo"></i> Send via WhatsApp
+        </button>
+        <a href="index.html" class="btn-primary" style="text-decoration:none; text-align:center;">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="checkout-footer">
+    <a href="#">Refund Policy</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+  </footer>
+
+  <script src="location.js"></script>
+  <script src="checkout/main.js"></script>
+</body>
+</html>
