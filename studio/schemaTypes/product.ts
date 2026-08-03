@@ -45,12 +45,20 @@ export const product = defineType({
       of: [{ type: 'image', options: { hotspot: true } }],
     }),
     defineField({
+      name: 'matchingPieces',
+      title: 'Matching Pieces (Complete the Look)',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'product' }] }],
+      description: 'Select products that complete the look (e.g. matching trousers, dupattas).',
+    }),
+    defineField({
       name: 'sizes',
       title: 'Sizes',
       type: 'array',
       of: [
         {
           type: 'object',
+          name: 'sizeStock',
           fields: [
             { name: 'size', title: 'Size', type: 'string' },
             { name: 'stock', title: 'Stock', type: 'number' },
@@ -65,8 +73,14 @@ export const product = defineType({
       options: {
         list: [
           { title: 'Corset Kurtis', value: 'Corset Kurtis' },
+          { title: 'Printed Kurtis', value: 'Printed Kurtis' },
           { title: 'Bottoms', value: 'Bottoms' },
           { title: 'Duppatas', value: 'Duppatas' },
+          { title: 'Luxe wear', value: 'Luxe wear' },
+          { title: 'Farshi shalwar set', value: 'Farshi shalwar set' },
+          { title: 'Angrakhas', value: 'Angrakhas' },
+          { title: 'Basic Kurtis', value: 'Basic Kurtis' },
+          { title: 'Unstitched', value: 'Unstitched' },
         ],
         layout: 'radio'
       }
