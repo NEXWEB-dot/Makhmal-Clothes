@@ -472,33 +472,33 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.innerHTML = '';
 
     pieces.forEach((p, idx) => {
-      const priceStr = typeof p.price === 'number' ? \`Rs.\${p.price.toLocaleString()}\` : (p.price || '');
+      const priceStr = typeof p.price === 'number' ? `Rs.${p.price.toLocaleString()}` : (p.price || '');
       const sizes = Array.isArray(p.sizes) ? p.sizes : [];
       
       let sizesHtml = '';
       if (sizes.length > 0) {
-        sizesHtml = \`
-          <div class="flex gap-2 mt-4" id="mp-sizes-\${idx}">
-            \${sizes.map(opt => opt.stock > 0 
-                ? \`<button class="mp-size-btn border border-[#eae8e4] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] w-8 h-8 text-[0.6rem] uppercase bg-white transition-colors flex items-center justify-center" data-size="\${opt.size}">\${opt.size}</button>\`
-                : \`<button class="border border-[#eae8e4] text-[#d4d0ca] w-8 h-8 text-[0.6rem] uppercase cursor-not-allowed bg-white relative overflow-hidden flex items-center justify-center" disabled>\${opt.size}<div class="absolute w-full h-[1px] bg-[#d4d0ca] rotate-45"></div></button>\`
+        sizesHtml = `
+          <div class="flex gap-2 mt-4" id="mp-sizes-${idx}">
+            ${sizes.map(opt => opt.stock > 0 
+                ? `<button class="mp-size-btn border border-[#eae8e4] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] w-8 h-8 text-[0.6rem] uppercase bg-white transition-colors flex items-center justify-center" data-size="${opt.size}">${opt.size}</button>`
+                : `<button class="border border-[#eae8e4] text-[#d4d0ca] w-8 h-8 text-[0.6rem] uppercase cursor-not-allowed bg-white relative overflow-hidden flex items-center justify-center" disabled>${opt.size}<div class="absolute w-full h-[1px] bg-[#d4d0ca] rotate-45"></div></button>`
             ).join('')}
           </div>
-          <p id="mp-warning-\${idx}" class="text-[0.65rem] text-[#cc0000] mt-1 hidden">Select a size</p>
-        \`;
+          <p id="mp-warning-${idx}" class="text-[0.65rem] text-[#cc0000] mt-1 hidden">Select a size</p>
+        `;
       }
 
       const card = document.createElement('div');
       card.className = 'group';
-      card.innerHTML = \`
-        <a href="product.html?id=\${p._id}" class="block overflow-hidden bg-grey-1 aspect-[3/4] mb-4 relative">
-          <img src="\${p.mainImage || 'clothes/images/product-2.png'}" alt="\${p.title}" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
+      card.innerHTML = `
+        <a href="product.html?id=${p._id}" class="block overflow-hidden bg-grey-1 aspect-[3/4] mb-4 relative">
+          <img src="${p.mainImage || 'clothes/images/product-2.png'}" alt="${p.title}" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
         </a>
-        <h4 class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-grey-7 mb-1">\${p.title}</h4>
-        <p class="text-[0.7rem] font-semibold text-[#44403c]">\${priceStr}</p>
-        \${sizesHtml}
-        <button id="mp-add-\${idx}" class="mt-4 w-full bg-transparent border border-black text-black py-2 text-[0.65rem] font-bold tracking-[0.1em] uppercase hover:bg-black hover:text-white transition-colors duration-300">ADD TO BAG</button>
-      \`;
+        <h4 class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-grey-7 mb-1">${p.title}</h4>
+        <p class="text-[0.7rem] font-semibold text-[#44403c]">${priceStr}</p>
+        ${sizesHtml}
+        <button id="mp-add-${idx}" class="mt-4 w-full bg-transparent border border-black text-black py-2 text-[0.65rem] font-bold tracking-[0.1em] uppercase hover:bg-black hover:text-white transition-colors duration-300">ADD TO BAG</button>
+      `;
 
       grid.appendChild(card);
 
@@ -515,7 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.remove('border', 'border-[#eae8e4]', 'text-[#78716c]');
             btn.classList.add('border-2', 'border-[#1c1917]', 'text-[#1c1917]', 'font-bold');
             selectedSize = btn.getAttribute('data-size');
-            card.querySelector(\`#mp-warning-\${idx}\`).classList.add('hidden');
+            card.querySelector(`#mp-warning-${idx}`).classList.add('hidden');
           });
         });
       } else {
@@ -523,10 +523,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Handle Add to Bag
-      const addBtn = card.querySelector(\`#mp-add-\${idx}\`);
+      const addBtn = card.querySelector(`#mp-add-${idx}`);
       addBtn.addEventListener('click', () => {
         if (!selectedSize) {
-          card.querySelector(\`#mp-warning-\${idx}\`).classList.remove('hidden');
+          card.querySelector(`#mp-warning-${idx}`).classList.remove('hidden');
           return;
         }
         
@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const priceVal = parseInt(String(p.price).replace(/[^0-9]/g, ''), 10) || 0;
         const item = {
-            id: (p.sku || p.title.replace(/\\s+/g, '-').toLowerCase()) + '-' + selectedSize,
+            id: (p.sku || p.title.replace(/\s+/g, '-').toLowerCase()) + '-' + selectedSize,
             name: p.title,
             price: priceVal,
             image: p.mainImage || '',
@@ -558,7 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const badge = document.getElementById('cart-badge');
         if (badge) badge.textContent = parseInt(badge.textContent || '0') + 1;
         
-        showToast(\`\${p.title.split(' ').slice(0, 3).join(' ')} added!\`, 'success');
+        showToast(`${p.title.split(' ').slice(0, 3).join(' ')} added!`, 'success');
         setTimeout(() => {
           addBtn.innerHTML = originalHTML;
           addBtn.classList.remove('bg-black', 'text-white');
