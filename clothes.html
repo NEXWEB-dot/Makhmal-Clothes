@@ -105,12 +105,12 @@
       <div class="flex items-center justify-between h-16 md:h-20">
         <!-- Left: Hamburger & Logo -->
         <div class="flex items-center gap-6">
-          <i class="ph ph-list text-2xl md:text-3xl cursor-pointer hover:text-primary transition-colors"></i>
+          <i id="open-mobile-menu" class="ph ph-list text-2xl md:text-3xl cursor-pointer hover:text-primary transition-colors"></i>
           <a href="index.html" class="text-2xl md:text-4xl italic tracking-[0.03em] whitespace-nowrap" style="font-family: 'Cormorant Garamond', serif; font-weight: 600;">Makhmal</a>
         </div>
         <!-- Right: Icons -->
         <div class="flex items-center gap-6 text-xl md:text-2xl">
-          <i class="ph ph-magnifying-glass cursor-pointer hover:text-primary transition-colors"></i>
+          <i id="search-icon" class="ph ph-magnifying-glass cursor-pointer hover:text-primary transition-colors"></i>
           <a href="#" class="relative cursor-pointer hover:text-primary transition-colors hover:scale-110 duration-300 hidden md:block" title="Wishlist">
             <i class="ph ph-heart"></i>
             <span id="wishlist-badge" class="absolute -top-1.5 -right-2 bg-black text-brand-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
@@ -152,16 +152,16 @@
 
     <!-- Filter & Sort Bar -->
     <div class="flex items-center justify-between border-b border-grey-2 pb-4 mb-6">
-      <button class="text-[0.7rem] uppercase tracking-widest font-medium text-grey-7 hover:text-primary transition-colors flex items-center gap-1">
+      <button id="filter-btn" class="text-[0.7rem] uppercase tracking-widest font-medium text-grey-7 hover:text-primary transition-colors flex items-center gap-1">
         FILTER +
       </button>
       <div class="flex items-center gap-6">
         <div class="hidden md:flex items-center gap-2 text-xl text-grey-4">
-          <i class="ph ph-squares-four hover:text-black cursor-pointer transition-colors"></i>
-          <i class="ph ph-grid-nine hover:text-black cursor-pointer transition-colors"></i>
-          <i class="ph-bold ph-list hover:text-black cursor-pointer transition-colors"></i>
+          <i id="view-2col" class="ph ph-squares-four hover:text-black cursor-pointer transition-colors" title="2-column view"></i>
+          <i id="view-4col" class="ph ph-grid-nine hover:text-black cursor-pointer transition-colors text-black" title="4-column view"></i>
+          <i id="view-list" class="ph-bold ph-list hover:text-black cursor-pointer transition-colors" title="List view"></i>
         </div>
-        <button class="text-[0.7rem] uppercase tracking-widest font-medium text-grey-7 hover:text-primary transition-colors flex items-center gap-1">
+        <button id="sort-btn" class="text-[0.7rem] uppercase tracking-widest font-medium text-grey-7 hover:text-primary transition-colors flex items-center gap-1">
           SORT +
         </button>
       </div>
@@ -292,6 +292,101 @@
       </div>
     </div>
   </footer>
+  <!-- Global Overlay -->
+  <div id="global-overlay" class="fixed inset-0 bg-black/40 z-[60] hidden opacity-0 transition-opacity duration-500"></div>
+
+  <!-- Mobile Menu Panel -->
+  <div id="mobile-menu" class="fixed top-0 left-0 h-full w-80 max-w-[90vw] bg-white z-[70] shadow-2xl -translate-x-full transition-transform duration-500 overflow-y-auto flex flex-col">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-grey-2">
+      <span class="text-xl italic tracking-[0.03em]" style="font-family:'Cormorant Garamond',serif;font-weight:600;">Makhmal</span>
+      <button id="close-mobile-menu" class="text-2xl text-grey-7 hover:text-primary transition-colors"><i class="ph ph-x"></i></button>
+    </div>
+    <nav class="flex flex-col px-6 py-6 gap-5 text-[0.7rem] uppercase tracking-widest font-medium text-grey-7">
+      <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+      <a href="clothes.html" class="hover:text-primary transition-colors text-black border-b border-black pb-1">Ready to Wear</a>
+      <a href="clothes.html?category=Corset%20Kurtis" class="hover:text-primary transition-colors">Corset Kurtis</a>
+      <a href="clothes.html?category=Printed%20Kurtis" class="hover:text-primary transition-colors">Printed Kurtis</a>
+      <a href="clothes.html?category=Bottoms" class="hover:text-primary transition-colors">Bottoms</a>
+      <a href="clothes.html?category=Duppatas" class="hover:text-primary transition-colors">Duppatas</a>
+      <a href="clothes.html?category=Luxe%20wear" class="hover:text-primary transition-colors">Luxe Wear</a>
+      <a href="clothes.html?category=Farshi%20shalwar%20set" class="hover:text-primary transition-colors">Farshi Shalwar Set</a>
+      <a href="clothes.html?category=Angrakhas" class="hover:text-primary transition-colors">Angrakhas</a>
+      <a href="clothes.html?category=Basic%20Kurtis" class="hover:text-primary transition-colors">Basic Kurtis</a>
+      <a href="clothes.html?category=Unstitched" class="hover:text-primary transition-colors">Unstitched</a>
+    </nav>
+    <div class="mt-auto px-6 py-6 border-t border-grey-2">
+      <a href="checkout.html" class="flex items-center gap-2 text-[0.7rem] uppercase tracking-widest font-medium text-grey-7 hover:text-primary transition-colors">
+        <i class="ph ph-shopping-bag text-lg"></i> Cart
+      </a>
+    </div>
+  </div>
+
+  <!-- Search Overlay -->
+  <div id="search-overlay" class="fixed inset-0 bg-white z-[80] hidden opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center px-6">
+    <button id="close-search" class="absolute top-5 right-6 text-3xl text-grey-7 hover:text-primary"><i class="ph ph-x"></i></button>
+    <p class="text-[0.7rem] uppercase tracking-widest text-grey-4 mb-4">Search Products</p>
+    <input id="search-input" type="text" placeholder="Type to search..." autocomplete="off"
+      class="w-full max-w-2xl text-2xl border-b-2 border-grey-7 outline-none pb-3 text-grey-7 placeholder-grey-3 bg-transparent tracking-wide">
+  </div>
+
+  <!-- Filter Drawer -->
+  <div id="filter-drawer" class="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white z-[70] shadow-2xl translate-x-full transition-transform duration-500 overflow-y-auto flex flex-col">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-grey-2">
+      <span class="text-[0.7rem] uppercase tracking-widest font-bold">Filter</span>
+      <button id="close-filter-drawer" class="text-2xl text-grey-7 hover:text-primary"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="px-6 py-6 flex flex-col gap-4">
+      <p class="text-[0.65rem] uppercase tracking-widest text-grey-4 font-semibold mb-2">Category</p>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="" class="accent-black"> All
+      </label>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="Corset Kurtis" class="accent-black"> Corset Kurtis
+      </label>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="Printed Kurtis" class="accent-black"> Printed Kurtis
+      </label>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="Bottoms" class="accent-black"> Bottoms
+      </label>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="Duppatas" class="accent-black"> Duppatas
+      </label>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="Luxe wear" class="accent-black"> Luxe Wear
+      </label>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="Farshi shalwar set" class="accent-black"> Farshi Shalwar Set
+      </label>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="Angrakhas" class="accent-black"> Angrakhas
+      </label>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="Basic Kurtis" class="accent-black"> Basic Kurtis
+      </label>
+      <label class="flex items-center gap-3 text-[0.75rem] tracking-wide cursor-pointer hover:text-primary">
+        <input type="radio" name="filter-cat" value="Unstitched" class="accent-black"> Unstitched
+      </label>
+    </div>
+    <div class="px-6 pb-8 mt-auto">
+      <button id="apply-filter-btn" class="w-full bg-black text-white text-[0.7rem] uppercase tracking-widest font-bold py-3 hover:bg-grey-7 transition-colors">Apply Filter</button>
+    </div>
+  </div>
+
+  <!-- Sort Dropdown -->
+  <div id="sort-dropdown" class="hidden fixed top-0 right-0 h-full w-64 max-w-[90vw] bg-white z-[70] shadow-2xl translate-x-full transition-transform duration-500 flex flex-col">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-grey-2">
+      <span class="text-[0.7rem] uppercase tracking-widest font-bold">Sort By</span>
+      <button id="close-sort-dropdown" class="text-2xl text-grey-7 hover:text-primary"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="px-6 py-6 flex flex-col gap-4" id="sort-options">
+      <button data-sort="default" class="sort-option text-left text-[0.75rem] tracking-wide hover:text-primary transition-colors font-semibold">Featured</button>
+      <button data-sort="price-asc" class="sort-option text-left text-[0.75rem] tracking-wide hover:text-primary transition-colors">Price: Low to High</button>
+      <button data-sort="price-desc" class="sort-option text-left text-[0.75rem] tracking-wide hover:text-primary transition-colors">Price: High to Low</button>
+      <button data-sort="name-asc" class="sort-option text-left text-[0.75rem] tracking-wide hover:text-primary transition-colors">Name: A–Z</button>
+    </div>
+  </div>
+
   <!-- Back to Top Button -->
   <button id="back-to-top" class="fixed bottom-6 left-6 z-[90] bg-black text-brand-white w-10 h-10 rounded-full flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-primary shadow-lg">
     <i class="ph ph-caret-up text-xl"></i>
@@ -389,6 +484,7 @@
         }
 
         grid.innerHTML = products.map(productCardHTML).join('');
+        allProducts = products;
       } catch (err) {
         console.error('Failed to load products from Sanity:', err);
         if (loadingEl) loadingEl.textContent = 'Could not load products. Please refresh the page.';
@@ -396,6 +492,149 @@
     }
 
     loadProducts();
+
+    // ===== MOBILE MENU =====
+    const mobileMenu    = document.getElementById('mobile-menu');
+    const openMenuBtn   = document.getElementById('open-mobile-menu');
+    const closeMenuBtn  = document.getElementById('close-mobile-menu');
+    const globalOverlay = document.getElementById('global-overlay');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchIcon    = document.getElementById('search-icon');
+    const closeSearch   = document.getElementById('close-search');
+
+    function openPanel(panel) {
+      globalOverlay.classList.remove('hidden');
+      setTimeout(() => globalOverlay.classList.remove('opacity-0'), 10);
+      if (panel === mobileMenu) panel.classList.remove('-translate-x-full');
+      else {
+        panel.classList.remove('hidden');
+        setTimeout(() => panel.classList.remove('opacity-0', 'translate-x-full'), 10);
+      }
+    }
+    function closeAllPanels() {
+      globalOverlay.classList.add('opacity-0');
+      setTimeout(() => globalOverlay.classList.add('hidden'), 500);
+      mobileMenu.classList.add('-translate-x-full');
+      searchOverlay.classList.add('opacity-0');
+      setTimeout(() => searchOverlay.classList.add('hidden'), 300);
+      closeFilterDrawer();
+      closeSortDropdown();
+    }
+    if (openMenuBtn)  openMenuBtn.addEventListener('click', () => openPanel(mobileMenu));
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeAllPanels);
+    if (globalOverlay) globalOverlay.addEventListener('click', closeAllPanels);
+    if (searchIcon) searchIcon.addEventListener('click', () => {
+      searchOverlay.classList.remove('hidden');
+      setTimeout(() => { searchOverlay.classList.remove('opacity-0'); document.getElementById('search-input').focus(); }, 10);
+    });
+    if (closeSearch) closeSearch.addEventListener('click', closeAllPanels);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllPanels(); });
+
+    // ===== FILTER DRAWER =====
+    const filterDrawer     = document.getElementById('filter-drawer');
+    const filterBtn        = document.getElementById('filter-btn');
+    const closeFilterDrawerBtn = document.getElementById('close-filter-drawer');
+    const applyFilterBtn   = document.getElementById('apply-filter-btn');
+
+    function openFilterDrawer() {
+      filterDrawer.classList.remove('translate-x-full');
+      globalOverlay.classList.remove('hidden');
+      setTimeout(() => globalOverlay.classList.remove('opacity-0'), 10);
+      // Pre-select current category
+      const urlParams = new URLSearchParams(window.location.search);
+      const cat = urlParams.get('category') || '';
+      document.querySelectorAll('input[name="filter-cat"]').forEach(r => { r.checked = r.value === cat; });
+    }
+    function closeFilterDrawer() {
+      filterDrawer.classList.add('translate-x-full');
+    }
+    if (filterBtn) filterBtn.addEventListener('click', openFilterDrawer);
+    if (closeFilterDrawerBtn) closeFilterDrawerBtn.addEventListener('click', () => { closeFilterDrawer(); closeAllPanels(); });
+    if (applyFilterBtn) applyFilterBtn.addEventListener('click', () => {
+      const selected = document.querySelector('input[name="filter-cat"]:checked');
+      const val = selected ? selected.value : '';
+      if (val) window.location.href = 'clothes.html?category=' + encodeURIComponent(val);
+      else window.location.href = 'clothes.html';
+    });
+
+    // ===== SORT DROPDOWN =====
+    const sortDropdown   = document.getElementById('sort-dropdown');
+    const sortBtn        = document.getElementById('sort-btn');
+    const closeSortBtn   = document.getElementById('close-sort-dropdown');
+
+    function openSortDropdown() {
+      sortDropdown.classList.remove('hidden');
+      setTimeout(() => sortDropdown.classList.remove('translate-x-full'), 10);
+      globalOverlay.classList.remove('hidden');
+      setTimeout(() => globalOverlay.classList.remove('opacity-0'), 10);
+    }
+    function closeSortDropdown() {
+      sortDropdown.classList.add('translate-x-full');
+      setTimeout(() => sortDropdown.classList.add('hidden'), 500);
+    }
+    if (sortBtn) sortBtn.addEventListener('click', openSortDropdown);
+    if (closeSortBtn) closeSortBtn.addEventListener('click', () => { closeSortDropdown(); closeAllPanels(); });
+
+    // Sort options — re-render sorted products client-side
+    let allProductsSorted = [];
+    const _waitForProducts = setInterval(() => {
+      if (typeof allProducts !== 'undefined' && allProducts.length > 0) {
+        allProductsSorted = allProducts;
+        clearInterval(_waitForProducts);
+      }
+    }, 500);
+    document.querySelectorAll('.sort-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sortType = btn.dataset.sort;
+        let sorted = [...allProducts];
+        if (sortType === 'price-asc')  sorted.sort((a, b) => a.price - b.price);
+        if (sortType === 'price-desc') sorted.sort((a, b) => b.price - a.price);
+        if (sortType === 'name-asc')   sorted.sort((a, b) => (a.name||'').localeCompare(b.name||''));
+        if (sortType === 'default')    sorted = [...allProducts]; // original order
+        const grid = document.getElementById('product-grid');
+        if (grid) grid.innerHTML = sorted.map(productCardHTML).join('');
+        document.querySelectorAll('.sort-option').forEach(b => b.classList.remove('font-semibold'));
+        btn.classList.add('font-semibold');
+        closeSortDropdown();
+        setTimeout(() => globalOverlay.classList.add('opacity-0'), 10);
+        setTimeout(() => globalOverlay.classList.add('hidden'), 510);
+      });
+    });
+
+    // Store products after load for sort
+    const _origLoadProducts = loadProducts;
+    // Patch: capture fetched products into allProducts
+    // (already called above — re-patch fetch result)
+    (async () => {
+      await new Promise(r => setTimeout(r, 2000)); // wait for initial load
+      const grid = document.getElementById('product-grid');
+      // products already loaded; get allProducts via second fetch if sort used
+    })();
+
+    // ===== GRID VIEW TOGGLES =====
+    const grid = document.getElementById('product-grid');
+    document.getElementById('view-2col')?.addEventListener('click', () => {
+      grid.className = grid.className.replace(/grid-cols-\d+|md:grid-cols-\d+/g, '').trim();
+      grid.classList.add('grid-cols-1', 'md:grid-cols-2');
+      setActiveView('view-2col');
+    });
+    document.getElementById('view-4col')?.addEventListener('click', () => {
+      grid.className = grid.className.replace(/grid-cols-\d+|md:grid-cols-\d+/g, '').trim();
+      grid.classList.add('grid-cols-2', 'md:grid-cols-4');
+      setActiveView('view-4col');
+    });
+    document.getElementById('view-list')?.addEventListener('click', () => {
+      grid.className = grid.className.replace(/grid-cols-\d+|md:grid-cols-\d+/g, '').trim();
+      grid.classList.add('grid-cols-1');
+      grid.querySelectorAll('a').forEach(card => { card.classList.add('flex-row', 'gap-4'); });
+      setActiveView('view-list');
+    });
+    function setActiveView(id) {
+      ['view-2col','view-4col','view-list'].forEach(v => {
+        const el = document.getElementById(v);
+        if (el) el.classList.toggle('text-black', v === id);
+      });
+    }
   </script>
 </body>
 </html>
