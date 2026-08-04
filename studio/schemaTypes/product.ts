@@ -11,6 +11,22 @@ export const product = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'productType',
+      title: 'Product Type',
+      type: 'string',
+      description: 'Is this a full set, a top/kurta, or a separate bottom? (Like Khaadi — list bottoms as their own product)',
+      options: {
+        list: [
+          { title: 'Kurta / Top', value: 'kurta' },
+          { title: 'Bottom (Trouser / Shalwar / Farshi)', value: 'bottom' },
+          { title: 'Full Set (Kurta + Bottom)', value: 'set' },
+          { title: 'Dupatta', value: 'dupatta' },
+          { title: 'Other', value: 'other' },
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
       name: 'price',
       title: 'Price',
       type: 'number',
@@ -102,3 +118,4 @@ export const product = defineType({
     }),
   ],
 })
+
