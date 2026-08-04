@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== LOCAL PRODUCT DATABASE (fallback) =====
   const products = {
-    1:  { title: "EMBROIDERED COTTON VISCOSE SHIRT", price: "Rs.4,990",  images: ["clothes/images/product-1.png"], sku: "MK-RTW-24-001" },
+    1:  { title: "EMBROIDERED COTTON VISCOSE SHIRT", price: "Rs.4,990",  images: ["../images/angrakha.jpg"], sku: "MK-RTW-24-001" },
     2:  { title: "PRINTED SATIN SHIRT",              price: "Rs.10,990", images: [
             "clothes/images/product-2.png",
             "clothes/images/woman.jpg",
