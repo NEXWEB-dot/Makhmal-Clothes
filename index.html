@@ -125,7 +125,23 @@
         <!-- Left Navigation (Desktop) -->
         <nav class="hidden lg:flex items-center space-x-8 w-1/3 text-xs font-bold tracking-widest">
           <a href="index.html" class="hover:text-primary transition-colors">HOME</a>
-          <a href="clothes.html" class="hover:text-primary transition-colors text-grey-4">WOMAN</a>
+          <div class="relative group">
+            <a href="clothes.html" class="hover:text-primary transition-colors text-grey-4 flex items-center gap-1 py-4">SHOP <i class="ph ph-caret-down text-[10px]"></i></a>
+            <div class="absolute left-0 top-full hidden group-hover:block w-48 z-50 shadow-2xl">
+              <div class="bg-brand-white border-t-2 border-primary py-3 flex flex-col uppercase tracking-widest">
+                <a href="clothes.html" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-black">ALL</a>
+                <a href="clothes.html?category=Corset%20Kurtis" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-grey-6">CORSET KURTIS</a>
+                <a href="clothes.html?category=Printed%20Kurtis" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-grey-6">PRINTED KURTIS</a>
+                <a href="clothes.html?category=Bottoms" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-grey-6">BOTTOMS</a>
+                <a href="clothes.html?category=Duppatas" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-grey-6">DUPPATAS</a>
+                <a href="clothes.html?category=Luxe%20wear" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-grey-6">LUXE WEAR</a>
+                <a href="clothes.html?category=Farshi%20shalwar%20set" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-grey-6">FARSHI SHALWAR SET</a>
+                <a href="clothes.html?category=Angrakhas" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-grey-6">ANGRAKHAS</a>
+                <a href="clothes.html?category=Basic%20Kurtis" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-grey-6">BASIC KURTIS</a>
+                <a href="clothes.html?category=Unstitched" class="px-5 py-2 hover:bg-grey-1 hover:text-primary transition-colors text-grey-6">UNSTITCHED</a>
+              </div>
+            </div>
+          </div>
         </nav>
 
         <!-- Hamburger (Mobile) -->
@@ -165,7 +181,23 @@
       </div>
       <nav class="flex flex-col space-y-6 text-sm font-bold tracking-widest uppercase">
         <a href="index.html" class="hover:text-primary transition-colors">HOME</a>
-        <a href="clothes.html" class="hover:text-primary transition-colors text-grey-4">WOMAN</a>
+        <details class="group">
+          <summary class="hover:text-primary transition-colors text-grey-4 flex items-center justify-between cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+            SHOP <i class="ph ph-caret-down group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <div class="flex flex-col space-y-4 pl-4 mt-4 text-xs font-medium text-grey-6">
+            <a href="clothes.html" class="hover:text-primary">ALL</a>
+            <a href="clothes.html?category=Corset%20Kurtis" class="hover:text-primary">CORSET KURTIS</a>
+            <a href="clothes.html?category=Printed%20Kurtis" class="hover:text-primary">PRINTED KURTIS</a>
+            <a href="clothes.html?category=Bottoms" class="hover:text-primary">BOTTOMS</a>
+            <a href="clothes.html?category=Duppatas" class="hover:text-primary">DUPPATAS</a>
+            <a href="clothes.html?category=Luxe%20wear" class="hover:text-primary">LUXE WEAR</a>
+            <a href="clothes.html?category=Farshi%20shalwar%20set" class="hover:text-primary">FARSHI SHALWAR SET</a>
+            <a href="clothes.html?category=Angrakhas" class="hover:text-primary">ANGRAKHAS</a>
+            <a href="clothes.html?category=Basic%20Kurtis" class="hover:text-primary">BASIC KURTIS</a>
+            <a href="clothes.html?category=Unstitched" class="hover:text-primary">UNSTITCHED</a>
+          </div>
+        </details>
         <a href="clothes.html" class="hover:text-primary transition-colors text-grey-4">BEAUTY</a>
         <a href="clothes.html" class="hover:text-primary transition-colors text-grey-4">ACCESSORIES</a>
       </nav>

@@ -25,6 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
         sku,
         "mainImage": mainImage.asset->url,
         sizes
+      },
+      "matchingBottom": matchingBottom->{
+        _id,
+        "title": name,
+        price,
+        sku,
+        "mainImage": mainImage.asset->url,
+        sizes
       }
     }`;
     const url = `https://${projectId}.apicdn.sanity.io/v${apiVer}/data/query/${dataset}?query=${encodeURIComponent(query)}`;
@@ -336,6 +344,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----- SIZES (from Sanity sizes[] array) -----
     buildSizeButtons(data.sizes);
 
+    // ----- MATCHING BOTTOM ADDON -----
+    setupBottomAddon(data.matchingBottom);
+
     // ----- DETAILS TAB (from Sanity `details` field) -----
     const detailsTab = document.getElementById('tab-details');
     if (detailsTab) {
@@ -373,6 +384,113 @@ document.addEventListener('DOMContentLoaded', () => {
     buildSuggestedGrid(data._id);
     addToRecentlyViewed(data);
   }
+
+  // ===== MATCHING BOTTOM TOGGLE LOGIC =====
+  let bottomToggleOn = false;
+  let selectedBottomSize = null;
+
+  function setupBottomAddon(bottom) {
+    const section      = document.getElementById('bottom-addon-section');
+    const toggle       = document.getElementById('bottom-addon-toggle');
+    const knob         = document.getElementById('bottom-addon-knob');
+    const expanded     = document.getElementById('bottom-addon-expanded');
+    const imgEl        = document.getElementById('bottom-addon-img');
+    const nameEl       = document.getElementById('bottom-addon-name');
+    const priceEl      = document.getElementById('bottom-addon-price');
+    const sizeSel      = document.getElementById('bottom-size-selector');
+    const sizeWarn     = document.getElementById('bottom-size-warning');
+    const addCartBtn   = document.getElementById('bottom-add-to-cart-btn');
+
+    if (!section || !bottom) {
+      if (section) section.classList.add('hidden');
+      return;
+    }
+
+    // Populate static info
+    section.classList.remove('hidden');
+    if (imgEl)   imgEl.src = bottom.mainImage || '';
+    if (nameEl)  nameEl.textContent = bottom.title || '';
+    const bottomPrice = typeof bottom.price === 'number' ? `Rs.${bottom.price.toLocaleString()}` : (bottom.price || '');
+    if (priceEl) priceEl.textContent = bottomPrice;
+
+    // Build bottom size buttons
+    selectedBottomSize = null;
+    if (sizeSel) {
+      sizeSel.innerHTML = '';
+      const sizes = Array.isArray(bottom.sizes) ? bottom.sizes : [];
+      if (sizes.length === 0) {
+        sizeSel.innerHTML = '<p class="text-[0.65rem] text-[#a8a29e]">One size</p>';
+        selectedBottomSize = 'One Size';
+      } else {
+        sizes.forEach(s => {
+          const btn = document.createElement('button');
+          btn.textContent = s.size || s;
+          btn.className = 'h-9 px-4 border border-[#d1ccc6] text-[0.65rem] font-bold tracking-wide uppercase transition-colors hover:border-[#1c1917] hover:text-[#1c1917]';
+          if ((s.stock !== undefined && s.stock === 0)) {
+            btn.disabled = true;
+            btn.classList.add('opacity-30', 'cursor-not-allowed');
+          }
+          btn.addEventListener('click', () => {
+            sizeSel.querySelectorAll('button').forEach(b => b.classList.remove('bg-[#1c1917]', 'text-white', 'border-[#1c1917]'));
+            btn.classList.add('bg-[#1c1917]', 'text-white', 'border-[#1c1917]');
+            selectedBottomSize = s.size || s;
+            if (sizeWarn) sizeWarn.classList.add('hidden');
+          });
+          sizeSel.appendChild(btn);
+        });
+      }
+    }
+
+    // Toggle switch
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        bottomToggleOn = !bottomToggleOn;
+        toggle.setAttribute('aria-checked', bottomToggleOn);
+        if (bottomToggleOn) {
+          toggle.style.backgroundColor = '#1c1917';
+          knob.style.transform = 'translateX(24px)';
+          expanded.classList.remove('hidden');
+        } else {
+          toggle.style.backgroundColor = '#d1ccc6';
+          knob.style.transform = 'translateX(0)';
+          expanded.classList.add('hidden');
+          selectedBottomSize = null;
+          if (sizeSel) sizeSel.querySelectorAll('button').forEach(b => b.classList.remove('bg-[#1c1917]','text-white','border-[#1c1917]'));
+          if (sizeWarn) sizeWarn.classList.add('hidden');
+        }
+      });
+    }
+
+    // Add bottom to cart button
+    if (addCartBtn) {
+      addCartBtn.addEventListener('click', () => {
+        if (!selectedBottomSize) {
+          if (sizeWarn) sizeWarn.classList.remove('hidden');
+          return;
+        }
+        const cart = JSON.parse(localStorage.getItem('makhmal_cart') || '[]');
+        const existing = cart.find(i => i.id === bottom._id && i.size === selectedBottomSize);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({
+            id:    bottom._id,
+            name:  bottom.title,
+            price: bottom.price,
+            image: bottom.mainImage || '',
+            size:  selectedBottomSize,
+            qty:   1
+          });
+        }
+        localStorage.setItem('makhmal_cart', JSON.stringify(cart));
+        const count = cart.reduce((s, i) => s + i.qty, 0);
+        const badge = document.getElementById('cart-badge');
+        if (badge) badge.textContent = count;
+        showToast('Bottom added to cart!', 'success');
+      });
+    }
+  }
+
 
   // ===== SIZE BUTTONS (built dynamically from Sanity sizes[]) =====
   let selectedSize = null;

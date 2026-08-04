@@ -304,16 +304,23 @@
     </div>
     <nav class="flex flex-col px-6 py-6 gap-5 text-[0.7rem] uppercase tracking-widest font-medium text-grey-7">
       <a href="index.html" class="hover:text-primary transition-colors">Home</a>
-      <a href="clothes.html" class="hover:text-primary transition-colors text-black border-b border-black pb-1">Ready to Wear</a>
-      <a href="clothes.html?category=Corset%20Kurtis" class="hover:text-primary transition-colors">Corset Kurtis</a>
-      <a href="clothes.html?category=Printed%20Kurtis" class="hover:text-primary transition-colors">Printed Kurtis</a>
-      <a href="clothes.html?category=Bottoms" class="hover:text-primary transition-colors">Bottoms</a>
-      <a href="clothes.html?category=Duppatas" class="hover:text-primary transition-colors">Duppatas</a>
-      <a href="clothes.html?category=Luxe%20wear" class="hover:text-primary transition-colors">Luxe Wear</a>
-      <a href="clothes.html?category=Farshi%20shalwar%20set" class="hover:text-primary transition-colors">Farshi Shalwar Set</a>
-      <a href="clothes.html?category=Angrakhas" class="hover:text-primary transition-colors">Angrakhas</a>
-      <a href="clothes.html?category=Basic%20Kurtis" class="hover:text-primary transition-colors">Basic Kurtis</a>
-      <a href="clothes.html?category=Unstitched" class="hover:text-primary transition-colors">Unstitched</a>
+      <details class="group">
+        <summary class="hover:text-primary transition-colors text-black flex items-center justify-between cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+          SHOP <i class="ph ph-caret-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="flex flex-col space-y-4 pl-4 mt-4 text-[0.65rem] font-medium text-grey-6">
+          <a href="clothes.html" class="hover:text-primary">ALL</a>
+          <a href="clothes.html?category=Corset%20Kurtis" class="hover:text-primary">CORSET KURTIS</a>
+          <a href="clothes.html?category=Printed%20Kurtis" class="hover:text-primary">PRINTED KURTIS</a>
+          <a href="clothes.html?category=Bottoms" class="hover:text-primary">BOTTOMS</a>
+          <a href="clothes.html?category=Duppatas" class="hover:text-primary">DUPPATAS</a>
+          <a href="clothes.html?category=Luxe%20wear" class="hover:text-primary">LUXE WEAR</a>
+          <a href="clothes.html?category=Farshi%20shalwar%20set" class="hover:text-primary">FARSHI SHALWAR SET</a>
+          <a href="clothes.html?category=Angrakhas" class="hover:text-primary">ANGRAKHAS</a>
+          <a href="clothes.html?category=Basic%20Kurtis" class="hover:text-primary">BASIC KURTIS</a>
+          <a href="clothes.html?category=Unstitched" class="hover:text-primary">UNSTITCHED</a>
+        </div>
+      </details>
     </nav>
     <div class="mt-auto px-6 py-6 border-t border-grey-2">
       <a href="checkout.html" class="flex items-center gap-2 text-[0.7rem] uppercase tracking-widest font-medium text-grey-7 hover:text-primary transition-colors">
@@ -459,6 +466,11 @@
           link.classList.add('text-black', 'border-b', 'border-black', 'pb-1');
           link.classList.remove('text-grey-6');
         }
+      });
+
+      // Update Filter Drawer Radio Button
+      document.getElementsByName('filter-cat').forEach(r => {
+        if ((category && r.value === category) || (!category && r.value === '')) r.checked = true;
       });
 
       let query = `*[_type == "product"] | order(order asc){
