@@ -282,7 +282,7 @@ function placeOrder() {
 
     let orderItemsMsg = '';
     cart.forEach((item, index) => {
-      orderItemsMsg += `${index + 1}. ${item.title} (Qty: ${item.qty})\n`;
+      orderItemsMsg += `${index + 1}. ${item.name} (Qty: ${item.qty})\n`;
     });
 
     const msg = `🧾 *New Order — Makhmal*\n\n`
