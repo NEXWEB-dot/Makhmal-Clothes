@@ -1,7 +1,7 @@
 // ---- STATE ----
 let currentStep = 1;
 let shippingMethod = 'standard';
-const SHIPPING_COST = { standard: 0, express: 350 };
+const SHIPPING_COST = { standard: 499 };
 
 // ---- CART HELPERS ----
 function getCart() {
@@ -258,24 +258,52 @@ function placeOrder() {
   }
 
   const btn = document.getElementById('btn-place-order');
-  btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Processing...';
+  btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Opening WhatsApp...';
   btn.disabled = true;
 
   setTimeout(() => {
     const paymentVal = selectedPaymentInput.value;
-    buildReceipt(paymentVal, cart);
+    
+    // Build receipt details for the message
+    const fName = document.getElementById('first-name').value;
+    const lName = document.getElementById('last-name').value;
+    const phone = document.getElementById('phone').value;
+    const total = 'Rs. ' + getTotal().toLocaleString();
+    
+    const paymentLabels = {
+      easypaisa: 'Easypaisa',
+      jazzcash: 'Jazz Cash',
+      banktransfer: 'Bank Transfer',
+      remitly: 'Remitly',
+      moneygram: 'MoneyGram',
+      taptapsend: 'Tap Tap Send'
+    };
+    const paymentLabel = paymentLabels[paymentVal] || 'Pending';
 
-    // Show success overlay
-    const overlay = document.getElementById('success-overlay');
-    overlay.classList.add('show');
-    document.body.style.overflow = 'hidden';
+    let orderItemsMsg = '';
+    cart.forEach((item, index) => {
+      orderItemsMsg += `${index + 1}. ${item.title} (Qty: ${item.qty})\n`;
+    });
+
+    const msg = `🧾 *New Order — Makhmal*\n\n`
+      + `👤 *Name:* ${fName} ${lName}\n`
+      + `📞 *Phone:* ${phone}\n`
+      + `💰 *Total:* ${total}\n`
+      + `💳 *Payment:* ${paymentLabel}\n\n`
+      + `📦 *Order Items:*\n${orderItemsMsg}\n`
+      + `Please confirm my order!`;
 
     // Clear cart
     saveCart([]);
     updateBadge();
 
+    window.open(`https://wa.me/923165521689?text=${encodeURIComponent(msg)}`, '_blank');
+    
     btn.innerHTML = '<i class="ph ph-lock-key"></i> Complete Order';
     btn.disabled = false;
+    
+    // Redirect back to home
+    window.location.href = 'index.html';
   }, 800);
 }
 

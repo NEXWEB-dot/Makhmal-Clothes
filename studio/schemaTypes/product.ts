@@ -68,6 +68,13 @@ export const product = defineType({
       description: 'Select products that complete the look (e.g. matching trousers, dupattas).',
     }),
     defineField({
+      name: 'matchingBottom',
+      title: 'Matching Bottom (Add-On Toggle)',
+      type: 'reference',
+      to: [{ type: 'product' }],
+      description: 'Link the matching bottom (trouser/shalwar) that can be added as an optional add-on on the product page. When set, a toggle will appear on the product page letting customers add the bottom to their cart.',
+    }),
+    defineField({
       name: 'sizes',
       title: 'Sizes',
       type: 'array',

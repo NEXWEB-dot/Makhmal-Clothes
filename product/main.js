@@ -1042,11 +1042,27 @@ document.addEventListener('DOMContentLoaded', () => {
     searchIcon.addEventListener('click', () => {
       if (searchOverlay) {
         searchOverlay.classList.remove('hidden');
-        setTimeout(() => searchOverlay.classList.remove('opacity-0'), 10);
+        setTimeout(() => {
+          searchOverlay.classList.remove('opacity-0');
+          const searchInput = document.getElementById('search-input');
+          if (searchInput) searchInput.focus();
+        }, 10);
       }
     });
   }
   if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeAllPanels);
+
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const q = searchInput.value.trim();
+        if (q) {
+          window.location.href = `clothes.html?q=${encodeURIComponent(q)}`;
+        }
+      }
+    });
+  }
 
   // ===== SCROLL ANIMATIONS =====
   const observer = new IntersectionObserver((entries, obs) => {

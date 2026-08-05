@@ -88,7 +88,7 @@
   <div class="bg-black text-brand-white text-xs font-medium py-2 uppercase tracking-widest relative z-50">
     <div class="container mx-auto px-4 flex justify-between items-center max-w-[1440px]">
       <div class="hidden md:block w-24"></div>
-      <div class="text-center flex-1">Free delivery on all orders over Rs. 3500</div>
+      <div class="text-center flex-1">Flat Rs. 499 shipping fee nationwide</div>
       <div class="w-24 text-right">
         <select class="region-selector bg-transparent text-white border-none outline-none text-[10px] tracking-widest cursor-pointer uppercase appearance-none text-right">
           <option value="Pakistan" class="text-black">Pakistan</option>
@@ -459,6 +459,7 @@
       
       const urlParams = new URLSearchParams(window.location.search);
       const category = urlParams.get('category');
+      const searchQuery = urlParams.get('q');
 
       // Update active category link styling
       document.querySelectorAll('.category-link').forEach(link => {
@@ -479,6 +480,10 @@
 
       if (category) {
         query = `*[_type == "product" && category == "${category}"] | order(order asc){
+          _id, name, price, collectionTag, badge, "mainImage": mainImage.asset->url
+        }`;
+      } else if (searchQuery) {
+        query = `*[_type == "product" && name match "*${searchQuery}*"] | order(order asc){
           _id, name, price, collectionTag, badge, "mainImage": mainImage.asset->url
         }`;
       }
@@ -542,6 +547,18 @@
     });
     if (closeSearch) closeSearch.addEventListener('click', closeAllPanels);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllPanels(); });
+
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const q = searchInput.value.trim();
+          if (q) {
+            window.location.href = `clothes.html?q=${encodeURIComponent(q)}`;
+          }
+        }
+      });
+    }
 
     // ===== FILTER DRAWER =====
     const filterDrawer     = document.getElementById('filter-drawer');
