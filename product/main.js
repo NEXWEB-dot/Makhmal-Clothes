@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       description,
       details,
       soldOut,
+      category,
       "mainImage": mainImage.asset->url,
       "gallery": gallery[].asset->url,
       sizes,
@@ -45,6 +46,86 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Sanity fetch failed — using local fallback.', e);
       return null;
     }
+  }
+
+  // ===== SIZE CHART: FETCH FROM SANITY BY CATEGORY =====
+  async function fetchSizeChart(category) {
+    if (!category) return null;
+    const projectId = '4pv1hk2n';
+    const dataset   = 'production';
+    const apiVer    = '2024-01-01';
+    const query = `*[_type == "sizeChart" && category == "${category.replace(/"/g, '')}"][0]{
+      title,
+      category,
+      description,
+      columnHeaders,
+      rows[]{
+        sizeName,
+        values
+      }
+    }`;
+    const url = `https://${projectId}.apicdn.sanity.io/v${apiVer}/data/query/${dataset}?query=${encodeURIComponent(query)}`;
+    try {
+      const res  = await fetch(url);
+      const data = await res.json();
+      return data.result || null;
+    } catch (e) {
+      console.warn('Size chart fetch failed:', e);
+      return null;
+    }
+  }
+
+  function renderSizeChart(chart) {
+    const container = document.getElementById('size-chart-dynamic');
+    if (!container) return;
+
+    if (!chart) {
+      container.innerHTML = `
+        <p class="text-center text-[0.75rem] text-[#78716c] italic py-8">
+          No size chart available for this category.
+        </p>`;
+      return;
+    }
+
+    const headers  = Array.isArray(chart.columnHeaders) ? chart.columnHeaders : [];
+    const rows     = Array.isArray(chart.rows) ? chart.rows : [];
+    const desc     = chart.description || 'All measurements are in inches. These are garment measurements, not body measurements.';
+
+    // Build header cells
+    const headerCells = ['Size', ...headers]
+      .map(h => `<th class="py-3 px-4 font-bold uppercase tracking-widest">${h}</th>`)
+      .join('');
+
+    // Build body rows
+    const bodyRows = rows.map((row, i) => {
+      const valCells = (row.values || []).map(v => `<td class="py-3 px-4">${v}</td>`).join('');
+      const stripe = i % 2 === 1 ? 'bg-[#faf8f5]' : '';
+      return `
+        <tr class="border-b border-[#eae8e4] ${stripe}">
+          <td class="py-3 px-4 font-bold">${row.sizeName || ''}</td>
+          ${valCells}
+        </tr>`;
+    }).join('');
+
+    container.innerHTML = `
+      <p class="text-xs text-center text-[#78716c] mb-8">${desc}</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left border-collapse min-w-[380px]">
+          <thead>
+            <tr class="bg-[#faf8f5] border-b border-black text-[#1c1917]">
+              ${headerCells}
+            </tr>
+          </thead>
+          <tbody>
+            ${bodyRows}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  async function fetchAndRenderSizeChart(category) {
+    const chart = await fetchSizeChart(category);
+    renderSizeChart(chart);
   }
 
   // ===== TOAST SYSTEM =====
@@ -394,6 +475,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Matching Pieces
     buildMatchingPieces(data.matchingPieces);
+
+    // Size chart — fetch by product category
+    fetchAndRenderSizeChart(data.category || null);
 
     // Suggested products
     buildSuggestedGrid(data._id);

@@ -123,6 +123,13 @@ export const product = defineType({
       title: 'Order',
       type: 'number',
     }),
+    defineField({
+      name: 'soldOut',
+      title: 'Sold Out',
+      type: 'boolean',
+      description: 'Mark this product as sold out. It will still be visible but shown as unavailable.',
+      initialValue: false,
+    }),
   ],
 })
 
