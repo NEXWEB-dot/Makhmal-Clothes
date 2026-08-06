@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sku,
       description,
       details,
+      soldOut,
       "mainImage": mainImage.asset->url,
       "gallery": gallery[].asset->url,
       sizes,
@@ -336,10 +337,24 @@ document.addEventListener('DOMContentLoaded', () => {
         "url": window.location.href,
         "priceCurrency": "PKR",
         "price": typeof data.price === 'string' ? data.price.replace(/[^0-9]/g, '') : data.price,
-        "availability": "https://schema.org/InStock",
+        "availability": data.soldOut ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
         "itemCondition": "https://schema.org/NewCondition"
       }
     });
+
+    // ----- SOLD OUT state -----
+    if (data.soldOut) {
+      const buyBtn        = document.getElementById('buy-now-btn');
+      const addCartBtn    = document.getElementById('add-to-cart-btn');
+      const stickyBuyBtn  = document.getElementById('sticky-buy-btn');
+      const sizeSection   = document.getElementById('size-selector-section');
+      const soldOutMsg    = '<p class="w-full text-center text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white bg-black py-4">Sold Out</p>';
+      if (buyBtn)       { buyBtn.outerHTML = soldOutMsg; }
+      if (addCartBtn)   { addCartBtn.outerHTML = ''; }
+      if (stickyBuyBtn) { stickyBuyBtn.textContent = 'Sold Out'; stickyBuyBtn.disabled = true; stickyBuyBtn.classList.add('opacity-50', 'cursor-not-allowed'); }
+      if (sizeSection)  { sizeSection.style.opacity = '0.4'; sizeSection.style.pointerEvents = 'none'; }
+      if (priceEl)      { priceEl.classList.add('line-through', 'text-grey-4'); }
+    }
 
     // ----- SIZES (from Sanity sizes[] array) -----
     buildSizeButtons(data.sizes);

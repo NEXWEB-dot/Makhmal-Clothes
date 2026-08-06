@@ -432,15 +432,17 @@
       const image = esc(p.mainImage || '');
       const tag = esc(p.collectionTag || '');
       const badge = esc(p.badge || '');
+      const soldOut = p.soldOut === true;
 
       return `
-        <a href="product.html?id=${p._id}" class="group cursor-pointer flex flex-col scroll-animate is-visible">
+        <a href="${soldOut ? '#' : `product.html?id=${p._id}`}" class="group ${soldOut ? 'cursor-not-allowed' : 'cursor-pointer'} flex flex-col scroll-animate is-visible">
           <div class="relative bg-grey-1 aspect-[3/4] mb-4 overflow-hidden">
-            <img src="${image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="${name}" loading="lazy">
+            <img src="${image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ${soldOut ? 'opacity-50' : ''}" alt="${name}" loading="lazy">
+            ${soldOut ? `<div class="absolute inset-0 flex items-center justify-center"><span class="bg-black text-white text-[0.6rem] font-bold uppercase tracking-[0.2em] px-4 py-2">Sold Out</span></div>` : ''}
           </div>
-          <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium group-hover:text-primary transition-colors text-grey-7">${name}</h2>
+          <h2 class="text-[0.7rem] uppercase tracking-widest mb-1 font-medium ${soldOut ? 'text-grey-4' : 'group-hover:text-primary transition-colors text-grey-7'}">${name}</h2>
           <p class="text-[0.65rem] uppercase tracking-wide text-grey-4 mb-1">${tag}</p>
-          <p class="text-[0.8rem] font-bold text-grey-7 mb-3">Rs.${price.toLocaleString()}</p>
+          <p class="text-[0.8rem] font-bold ${soldOut ? 'text-grey-4 line-through' : 'text-grey-7'} mb-3">Rs.${price.toLocaleString()}</p>
           ${badge ? `<div class="mt-auto"><span class="inline-block bg-grey-1 px-2 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-grey-6">${badge}</span></div>` : ''}
         </a>
       `;
@@ -468,16 +470,16 @@
       });
 
       let query = `*[_type == "product"] | order(order asc){
-        _id, name, price, collectionTag, badge, "mainImage": mainImage.asset->url
+        _id, name, price, collectionTag, badge, soldOut, "mainImage": mainImage.asset->url
       }`;
 
       if (category) {
         query = `*[_type == "product" && category == "${category}"] | order(order asc){
-          _id, name, price, collectionTag, badge, "mainImage": mainImage.asset->url
+          _id, name, price, collectionTag, badge, soldOut, "mainImage": mainImage.asset->url
         }`;
       } else if (searchQuery) {
         query = `*[_type == "product" && name match "*${searchQuery}*"] | order(order asc){
-          _id, name, price, collectionTag, badge, "mainImage": mainImage.asset->url
+          _id, name, price, collectionTag, badge, soldOut, "mainImage": mainImage.asset->url
         }`;
       }
 
