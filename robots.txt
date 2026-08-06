@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.makhmal.com/sitemap.xml
+Sitemap: https://makhmalbytabeer.com/sitemap.xml
